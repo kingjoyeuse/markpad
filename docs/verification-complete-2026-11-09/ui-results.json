@@ -1,0 +1,171 @@
+[
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Transfer to spreadsheet focuses grid",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Down after transfer moves active worksheet cell",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Transfer to calculator focuses calculation input",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Transferred calculator value continues with keyboard calculation",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "C1 = Left Left builds =A1",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Referenced A1 highlighted independently of formula origin",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "F4 =$A$1",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "F4 =A$1",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "F4 =$A1",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "F4 =A1",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Formula commits to original C1",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Formula evaluates to transferred value",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Insert row moves cells and updates formula",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Row insertion is undoable",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Insert column moves data and formula",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Delete inserted column restores addresses",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Column drag resize persists width",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Row drag resize persists height",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Rendered cell follows resized height",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Status shows saved and pending sizes after spreadsheet changes",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Dimensions included in saved Markdown metadata",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Independent tabs retained: calc-tab",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Independent tabs retained: sheet-tab",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Spreadsheet interactions have no renderer exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Large document initially editable before formatting completes",
+    "pass": true,
+    "detail": {
+      "ready": 288,
+      "pending": true
+    }
+  },
+  {
+    "test": "Typing accepted during worker formatting",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Edits survive automatic formatting promotion",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Document tail preserved after formatting",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Large-file load has no renderer exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Atlas staged-load timings",
+    "pass": true,
+    "detail": {
+      "editableMs": 414.39999999990687,
+      "parseMs": 3561.3000000000466,
+      "hydrateMs": 246,
+      "formattedMs": 5361.09999999986,
+      "fixtureStart": 126.39999999990687
+    }
+  }
+]

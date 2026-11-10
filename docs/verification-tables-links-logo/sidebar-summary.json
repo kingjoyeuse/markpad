@@ -1,0 +1,5 @@
+{
+  "passed": 156,
+  "rendererErrors": [],
+  "coverage": "Source app plus both runtime layouts; open/closed combinations, narrow windows, themes, scrolling, resized cards, Raw/Formatted."
+}

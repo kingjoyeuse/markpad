@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "checks": [
+    "Typing numbers/formulas and Enter commits with correct recalculation",
+    "Relative Ctrl+D fill, undo, and redo",
+    "Formula bar edit and SUM range evaluation",
+    "Pointer double-click starts a cell edit; Escape discards pending input",
+    "Pointer double-click and inline worksheet rename",
+    "F2, Tab/Shift+Tab, and Shift+Arrow selection",
+    "Clipboard-event TSV rectangle paste and relative formula copy/paste",
+    "Reference equations, error-producing equations, numeric conversion, and ordinary-text transfer",
+    "Add/switch worksheets; cross-sheet references survive tab rename",
+    "Explicit worksheet deletion and undo restore its formula data",
+    "Distant row edit, Ctrl+Home/End, and viewport-bounded cell DOM"
+  ],
+  "observed": {
+    "activeCell": "D600",
+    "sheets": [
+      "Rates",
+      "Totals"
+    ],
+    "renderedCells": 102,
+    "totalRows": 1000,
+    "totalColumns": 52,
+    "committedChanges": 21,
+    "notices": []
+  },
+  "limitations": [
+    "Clipboard tests dispatch real DOM ClipboardEvents with DataTransfer payloads; operating-system clipboard interoperability was not exercised.",
+    "This fixture does not test document/sidebar selection bookmarks, native application menus, filesystem recovery, or the final Windows package.",
+    "The measured DOM cell count establishes virtual rendering, not a RAM or typing-latency benchmark."
+  ],
+  "timestamp_utc": "2026-11-09T20:46:00.877635+00:00",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python_version": "3.12.14",
+  "electron_version": "45.2.3",
+  "spreadsheet_source_sha256": "6b47d348db694ef1b8237155d301012841bce1bf55ca2e0c1c1aa714adee46da",
+  "scope": "Isolated SpreadsheetView Electron renderer fixture; production desktop shell and final packaged bundle are not covered."
+}

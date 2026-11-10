@@ -1,0 +1,1098 @@
+{
+  "passed": 156,
+  "rendererErrors": [],
+  "cases": [
+    {
+      "case": "app:light:1200x900:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:light:1200x900:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:light:1200x900:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:light:1200x900:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:light:1200x900:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:light:1200x900:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:light:1200x900:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:light:1200x900:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:light:1200x900:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:light:1200x900:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 736,
+      "sheetRight": 736
+    },
+    {
+      "case": "app:light:1200x900:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 656,
+      "sheetRight": 656
+    },
+    {
+      "case": "app:light:1200x900:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 656,
+      "sheetRight": 1120
+    },
+    {
+      "case": "app:light:1200x900:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1120,
+      "sheetRight": 1120
+    },
+    {
+      "case": "app:dark:1200x900:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:dark:1200x900:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:dark:1200x900:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:dark:1200x900:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:dark:1200x900:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:dark:1200x900:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:dark:1200x900:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:dark:1200x900:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "app:dark:1200x900:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "app:dark:1200x900:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 736,
+      "sheetRight": 736
+    },
+    {
+      "case": "app:dark:1200x900:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 656,
+      "sheetRight": 656
+    },
+    {
+      "case": "app:dark:1200x900:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 656,
+      "sheetRight": 1120
+    },
+    {
+      "case": "app:dark:1200x900:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1120,
+      "sheetRight": 1120
+    },
+    {
+      "case": "app:dark:720x540:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "app:dark:720x540:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 720,
+      "sheetRight": 426
+    },
+    {
+      "case": "app:dark:720x540:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 426,
+      "sheetRight": 426
+    },
+    {
+      "case": "app:dark:720x540:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 426,
+      "sheetRight": 720
+    },
+    {
+      "case": "app:dark:720x540:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "app:dark:720x540:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 426,
+      "sheetRight": 720
+    },
+    {
+      "case": "app:dark:720x540:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 426,
+      "sheetRight": 426
+    },
+    {
+      "case": "app:dark:720x540:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 720,
+      "sheetRight": 426
+    },
+    {
+      "case": "app:dark:720x540:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "app:dark:720x540:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 256,
+      "sheetRight": 256
+    },
+    {
+      "case": "app:dark:720x540:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 176,
+      "sheetRight": 176
+    },
+    {
+      "case": "app:dark:720x540:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 176,
+      "sheetRight": 640
+    },
+    {
+      "case": "app:dark:720x540:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 640,
+      "sheetRight": 640
+    },
+    {
+      "case": "app:light:950x700:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "app:light:950x700:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 950,
+      "sheetRight": 616
+    },
+    {
+      "case": "app:light:950x700:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 616,
+      "sheetRight": 616
+    },
+    {
+      "case": "app:light:950x700:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 616,
+      "sheetRight": 950
+    },
+    {
+      "case": "app:light:950x700:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "app:light:950x700:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 616,
+      "sheetRight": 950
+    },
+    {
+      "case": "app:light:950x700:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 616,
+      "sheetRight": 616
+    },
+    {
+      "case": "app:light:950x700:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 950,
+      "sheetRight": 616
+    },
+    {
+      "case": "app:light:950x700:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "app:light:950x700:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 486,
+      "sheetRight": 486
+    },
+    {
+      "case": "app:light:950x700:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 406,
+      "sheetRight": 406
+    },
+    {
+      "case": "app:light:950x700:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 406,
+      "sheetRight": 870
+    },
+    {
+      "case": "app:light:950x700:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 870,
+      "sheetRight": 870
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 736,
+      "sheetRight": 736
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 656,
+      "sheetRight": 656
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 656,
+      "sheetRight": 1120
+    },
+    {
+      "case": "bin/resources/app/app:light:1200x900:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1120,
+      "sheetRight": 1120
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 736,
+      "sheetRight": 736
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 656,
+      "sheetRight": 656
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 656,
+      "sheetRight": 1120
+    },
+    {
+      "case": "bin/resources/app/app:dark:1200x900:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1120,
+      "sheetRight": 1120
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 720,
+      "sheetRight": 426
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 426,
+      "sheetRight": 426
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 426,
+      "sheetRight": 720
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 426,
+      "sheetRight": 720
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 426,
+      "sheetRight": 426
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 720,
+      "sheetRight": 426
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 256,
+      "sheetRight": 256
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 176,
+      "sheetRight": 176
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 176,
+      "sheetRight": 640
+    },
+    {
+      "case": "bin/resources/app/app:dark:720x540:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 640,
+      "sheetRight": 640
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 950,
+      "sheetRight": 616
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 616,
+      "sheetRight": 616
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 616,
+      "sheetRight": 950
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 616,
+      "sheetRight": 950
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 616,
+      "sheetRight": 616
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 950,
+      "sheetRight": 616
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 486,
+      "sheetRight": 486
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 406,
+      "sheetRight": 406
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 406,
+      "sheetRight": 870
+    },
+    {
+      "case": "bin/resources/app/app:light:950x700:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 870,
+      "sheetRight": 870
+    },
+    {
+      "case": "resources/app/app:light:1200x900:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:light:1200x900:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:light:1200x900:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 736,
+      "sheetRight": 736
+    },
+    {
+      "case": "resources/app/app:light:1200x900:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 656,
+      "sheetRight": 656
+    },
+    {
+      "case": "resources/app/app:light:1200x900:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 656,
+      "sheetRight": 1120
+    },
+    {
+      "case": "resources/app/app:light:1200x900:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1120,
+      "sheetRight": 1120
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 866,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 866,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 1200,
+      "sheetRight": 866
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1200,
+      "sheetRight": 1200
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 736,
+      "sheetRight": 736
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 656,
+      "sheetRight": 656
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 656,
+      "sheetRight": 1120
+    },
+    {
+      "case": "resources/app/app:dark:1200x900:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 1120,
+      "sheetRight": 1120
+    },
+    {
+      "case": "resources/app/app:dark:720x540:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 720,
+      "sheetRight": 426
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 426,
+      "sheetRight": 426
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 426,
+      "sheetRight": 720
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 426,
+      "sheetRight": 720
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 426,
+      "sheetRight": 426
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 720,
+      "sheetRight": 426
+    },
+    {
+      "case": "resources/app/app:dark:720x540:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 720,
+      "sheetRight": 720
+    },
+    {
+      "case": "resources/app/app:dark:720x540:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 256,
+      "sheetRight": 256
+    },
+    {
+      "case": "resources/app/app:dark:720x540:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 176,
+      "sheetRight": 176
+    },
+    {
+      "case": "resources/app/app:dark:720x540:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 176,
+      "sheetRight": 640
+    },
+    {
+      "case": "resources/app/app:dark:720x540:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 640,
+      "sheetRight": 640
+    },
+    {
+      "case": "resources/app/app:light:950x700:startup",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle1",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 950,
+      "sheetRight": 616
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle2",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 616,
+      "sheetRight": 616
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle3",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 616,
+      "sheetRight": 950
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle4",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle5",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 616,
+      "sheetRight": 950
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle6",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 616,
+      "sheetRight": 616
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle7",
+      "calcOpen": false,
+      "sheetOpen": true,
+      "calcRight": 950,
+      "sheetRight": 616
+    },
+    {
+      "case": "resources/app/app:light:950x700:toggle8",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 950,
+      "sheetRight": 950
+    },
+    {
+      "case": "resources/app/app:light:950x700:wider-cards",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 486,
+      "sheetRight": 486
+    },
+    {
+      "case": "resources/app/app:light:950x700:resize-window",
+      "calcOpen": true,
+      "sheetOpen": true,
+      "calcRight": 406,
+      "sheetRight": 406
+    },
+    {
+      "case": "resources/app/app:light:950x700:raw-mode",
+      "calcOpen": true,
+      "sheetOpen": false,
+      "calcRight": 406,
+      "sheetRight": 870
+    },
+    {
+      "case": "resources/app/app:light:950x700:raw-closed",
+      "calcOpen": false,
+      "sheetOpen": false,
+      "calcRight": 870,
+      "sheetRight": 870
+    }
+  ]
+}

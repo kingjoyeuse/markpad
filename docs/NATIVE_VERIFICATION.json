@@ -1,0 +1,358 @@
+{
+  "environment": {
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "electron": "45.2.3",
+    "headless": true,
+    "test_only_singleton_stub": true,
+    "native_file_dialogs_tested": false
+  },
+  "checks": {
+    "real_boot_open_and_formatted_render": true,
+    "ctrl_tab_toggles_once_preserving_source": true,
+    "real_save_existing_file_exact": true,
+    "native_clipboard_roundtrip": true,
+    "immediate_close_flush_and_recent_restore": true,
+    "theme_synced_across_six_windows": true,
+    "six_independent_document_sessions": true,
+    "five_windows_closed_without_losing_independent_drafts": true,
+    "graceful_last_window_exit": true
+  },
+  "metrics": [
+    {
+      "at": "2026-11-09T20:45:16.552Z",
+      "windows": 6,
+      "processes": 9,
+      "rssKb": 1155632,
+      "pssKb": 382497,
+      "privateKb": 236848,
+      "memoryReadable": true,
+      "cpuPercent": 0,
+      "details": [
+        {
+          "type": "Browser",
+          "pid": 6,
+          "rssKb": 182180,
+          "cpu": 0
+        },
+        {
+          "type": "GPU",
+          "pid": 34,
+          "rssKb": 81772,
+          "cpu": 0
+        },
+        {
+          "type": "Utility",
+          "pid": 37,
+          "rssKb": 85552,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 56,
+          "rssKb": 133744,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 112,
+          "rssKb": 131212,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 126,
+          "rssKb": 135000,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 140,
+          "rssKb": 135264,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 154,
+          "rssKb": 136248,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 168,
+          "rssKb": 134660,
+          "cpu": 0
+        }
+      ]
+    },
+    {
+      "at": "2026-11-09T20:45:19.552Z",
+      "windows": 6,
+      "processes": 9,
+      "rssKb": 1155960,
+      "pssKb": 382893,
+      "privateKb": 237244,
+      "memoryReadable": true,
+      "cpuPercent": 0.333019111757742,
+      "details": [
+        {
+          "type": "Browser",
+          "pid": 6,
+          "rssKb": 182308,
+          "cpu": 0.07400414016162134
+        },
+        {
+          "type": "GPU",
+          "pid": 34,
+          "rssKb": 81772,
+          "cpu": 0.07400083791148766
+        },
+        {
+          "type": "Utility",
+          "pid": 37,
+          "rssKb": 85556,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 56,
+          "rssKb": 133760,
+          "cpu": 0.03700151558207824
+        },
+        {
+          "type": "Tab",
+          "pid": 112,
+          "rssKb": 131268,
+          "cpu": 0.03700168809101409
+        },
+        {
+          "type": "Tab",
+          "pid": 126,
+          "rssKb": 135040,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 140,
+          "rssKb": 135288,
+          "cpu": 0.037002673887220436
+        },
+        {
+          "type": "Tab",
+          "pid": 154,
+          "rssKb": 136268,
+          "cpu": 0.03700308054345833
+        },
+        {
+          "type": "Tab",
+          "pid": 168,
+          "rssKb": 134700,
+          "cpu": 0.037005175580861915
+        }
+      ]
+    },
+    {
+      "at": "2026-11-09T20:45:22.556Z",
+      "windows": 6,
+      "processes": 9,
+      "rssKb": 1133448,
+      "pssKb": 369965,
+      "privateKb": 233928,
+      "memoryReadable": true,
+      "cpuPercent": 0.33297797230582576,
+      "details": [
+        {
+          "type": "Browser",
+          "pid": 6,
+          "rssKb": 177764,
+          "cpu": 0.0739899475037623
+        },
+        {
+          "type": "GPU",
+          "pid": 34,
+          "rssKb": 72180,
+          "cpu": 0.1109948994513855
+        },
+        {
+          "type": "Utility",
+          "pid": 37,
+          "rssKb": 85556,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 56,
+          "rssKb": 132476,
+          "cpu": 0.036998312137000305
+        },
+        {
+          "type": "Tab",
+          "pid": 112,
+          "rssKb": 130124,
+          "cpu": 0.03699843533616963
+        },
+        {
+          "type": "Tab",
+          "pid": 126,
+          "rssKb": 133844,
+          "cpu": 0.03699825053772333
+        },
+        {
+          "type": "Tab",
+          "pid": 140,
+          "rssKb": 134092,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 154,
+          "rssKb": 133904,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 168,
+          "rssKb": 133508,
+          "cpu": 0.0369981273397847
+        }
+      ]
+    },
+    {
+      "at": "2026-11-09T20:45:25.569Z",
+      "windows": 6,
+      "processes": 9,
+      "rssKb": 1132380,
+      "pssKb": 368776,
+      "privateKb": 232740,
+      "memoryReadable": true,
+      "cpuPercent": 0.2589763960433018,
+      "details": [
+        {
+          "type": "Browser",
+          "pid": 6,
+          "rssKb": 177816,
+          "cpu": 0.03699986450649618
+        },
+        {
+          "type": "GPU",
+          "pid": 34,
+          "rssKb": 72180,
+          "cpu": 0.11099172101653766
+        },
+        {
+          "type": "Utility",
+          "pid": 37,
+          "rssKb": 85556,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 56,
+          "rssKb": 131140,
+          "cpu": 0.03699640265478786
+        },
+        {
+          "type": "Tab",
+          "pid": 112,
+          "rssKb": 130276,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 126,
+          "rssKb": 133860,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 140,
+          "rssKb": 134108,
+          "cpu": 0.03699502302255775
+        },
+        {
+          "type": "Tab",
+          "pid": 154,
+          "rssKb": 133916,
+          "cpu": 0.03699338484292239
+        },
+        {
+          "type": "Tab",
+          "pid": 168,
+          "rssKb": 133528,
+          "cpu": 0
+        }
+      ]
+    },
+    {
+      "at": "2026-11-09T20:45:28.566Z",
+      "windows": 6,
+      "processes": 9,
+      "rssKb": 1132496,
+      "pssKb": 368884,
+      "privateKb": 232848,
+      "memoryReadable": true,
+      "cpuPercent": 0.3700203324060175,
+      "details": [
+        {
+          "type": "Browser",
+          "pid": 6,
+          "rssKb": 177868,
+          "cpu": 0.07399627931908329
+        },
+        {
+          "type": "GPU",
+          "pid": 34,
+          "rssKb": 72180,
+          "cpu": 0.07400241506881577
+        },
+        {
+          "type": "Utility",
+          "pid": 37,
+          "rssKb": 85556,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 56,
+          "rssKb": 131148,
+          "cpu": 0
+        },
+        {
+          "type": "Tab",
+          "pid": 112,
+          "rssKb": 130292,
+          "cpu": 0.037003437915409845
+        },
+        {
+          "type": "Tab",
+          "pid": 126,
+          "rssKb": 133868,
+          "cpu": 0.07400707300398114
+        },
+        {
+          "type": "Tab",
+          "pid": 140,
+          "rssKb": 134116,
+          "cpu": 0.03700322842067002
+        },
+        {
+          "type": "Tab",
+          "pid": 154,
+          "rssKb": 133932,
+          "cpu": 0.03700391852995273
+        },
+        {
+          "type": "Tab",
+          "pid": 168,
+          "rssKb": 133536,
+          "cpu": 0.03700398014810473
+        }
+      ]
+    }
+  ],
+  "startup": [
+    {
+      "processElapsedMs": 227.098753,
+      "rendererMs": 151.19999999925494
+    }
+  ]
+}

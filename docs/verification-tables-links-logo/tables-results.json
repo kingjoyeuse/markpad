@@ -1,0 +1,255 @@
+[
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Table button creates one header and one body cell",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Caret starts in the blank header",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "One extra ghost row and column appear while caret is in table",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Starter Markdown contains only real cells",
+    "pass": true,
+    "detail": "\n|     |\n| --- |\n|     |\n\n\n"
+  },
+  {
+    "test": "Right at final header moves into ghost column",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Second Right wraps to next real row without extending table",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Navigating ghost columns does not alter Markdown",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Down from final real row enters ghost row",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Second Down leaves table into a paragraph",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "All ghosts hide once caret leaves table",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Exiting empty ghost row does not create a real row",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Typing in ghost column creates a complete real column",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "New column preserves header semantics and typed content",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Typing in ghost row creates a full real row",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "New ghost row becomes body cells, not headers",
+    "pass": true,
+    "detail": "<colgroup><col style=\"min-width: 25px;\"><col style=\"min-width: 25px;\"></colgroup><tbody><tr><th><p>Heading</p></th><th><p>New column</p></th></tr><tr><td><p>Body</p></td><td><p>Other</p></td></tr><tr><td><p><br class=\"ProseMirror-trailingBreak\"></p></td><td><p>New row</p></td></tr></tbody>"
+  },
+  {
+    "test": "Ghost expansion saves only entered real rows and columns",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Clearing every value in a row contracts that row",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Clearing every value in a column contracts that column",
+    "pass": true,
+    "detail": {
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "table",
+            "content": [
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableHeader",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null,
+                      "align": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Heading"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "content": [
+                  {
+                    "type": "tableCell",
+                    "attrs": {
+                      "colspan": 1,
+                      "rowspan": 1,
+                      "colwidth": null,
+                      "align": null
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Body"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "source": "\n| Heading |\n| ------- |\n| Body    |\n\n\n",
+      "selection": {
+        "type": "text",
+        "anchor": 26,
+        "head": 26
+      }
+    }
+  },
+  {
+    "test": "Undo restores a cleared-and-contracted column",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Clicking a sidebar tab hides table ghosts",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Nonoverlapping lower spreadsheet does not squash a table near top",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Overlapping calculator narrows table to remaining left area",
+    "pass": true,
+    "detail": {
+      "table": {
+        "x": 38,
+        "y": 80,
+        "width": 726,
+        "height": 80.5
+      },
+      "panel": {
+        "x": 776,
+        "y": 43,
+        "width": 330,
+        "height": 286
+      }
+    }
+  },
+  {
+    "test": "Overlap results in actual width reduction",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Table returns to normal width after overlapping panel closes",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Ghost expansion space also stays clear of overlapping panel",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Table navigation and layout have no renderer exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Expanded real table round-trips through Markdown",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Right out of last ghost column wraps to first ghost-row cell",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Keyboard-only ghost row can be materialized",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Ghost wrap has no renderer exceptions",
+    "pass": true,
+    "detail": []
+  }
+]

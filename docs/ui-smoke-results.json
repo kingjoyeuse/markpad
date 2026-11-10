@@ -1,0 +1,83 @@
+{
+  "tests": [
+    {
+      "test": "typed Markdown and Ctrl+Tab source roundtrip",
+      "passed": true,
+      "seconds": 0.619
+    },
+    {
+      "test": "list and quote input rules",
+      "passed": true,
+      "seconds": 0.288
+    },
+    {
+      "test": "ordered list, task, link, code fence and rule input",
+      "passed": true,
+      "seconds": 1.422
+    },
+    {
+      "test": "toolbar preserves selected document range",
+      "passed": true,
+      "seconds": 6.274
+    },
+    {
+      "test": "calculator transfer and raw replacement bookmark",
+      "passed": true,
+      "seconds": 4.224
+    },
+    {
+      "test": "rich document selection and caret bookmark",
+      "passed": true,
+      "seconds": 4.236
+    },
+    {
+      "test": "keypad Enter and inline calculation shortcuts",
+      "passed": true,
+      "seconds": 0.195
+    },
+    {
+      "test": "context-menu numeric validation",
+      "passed": true,
+      "seconds": 4.254
+    },
+    {
+      "test": "spreadsheet transfers, layout and Markdown source",
+      "passed": true,
+      "seconds": 0.282
+    },
+    {
+      "test": "spreadsheet fill, formulas, undo and editing",
+      "passed": true,
+      "seconds": 2.195
+    },
+    {
+      "test": "spreadsheet named tabs and cross-sheet formulas",
+      "passed": true,
+      "seconds": 4.322
+    },
+    {
+      "test": "spreadsheet multicell clipboard and relative references",
+      "passed": true,
+      "seconds": 0.284
+    },
+    {
+      "test": "unsupported Markdown remains intact in raw mode",
+      "passed": true,
+      "seconds": 1.205
+    },
+    {
+      "test": "raw table edit conflict retains user changes",
+      "passed": true,
+      "seconds": 4.246
+    },
+    {
+      "test": "light/dark themes and browser draft recovery",
+      "passed": true,
+      "seconds": 8.546
+    }
+  ],
+  "passed": 15,
+  "failed": 0,
+  "rendererErrors": [],
+  "runtime": "Electron browser-fallback harness; real keyboard/DOM operations; read-only markpadInspect"
+}

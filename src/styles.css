@@ -1,0 +1,205 @@
+:root{font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;color-scheme:light;--bg:#fdfdfb;--chrome:#f3f4f1;--panel:#fafbf8;--text:#242b2b;--muted:#6b7575;--line:#dde2dd;--accent:#177b68;--accent-soft:#e2f0e9;--hover:#e6ebe5;--selected:#d3e9e0;--shadow:0 12px 40px #14262020;--calc-height:324px;--sidebar-width:330px;--cell-width:108px;--cell-height:27px;--danger:#bd4242}
+:root[data-theme=dark]{color-scheme:dark;--bg:#1b1e21;--chrome:#22262a;--panel:#202428;--text:#e0e6e5;--muted:#939e9e;--line:#353c40;--accent:#68c5ad;--accent-soft:#273e37;--hover:#323a3e;--selected:#315447;--shadow:0 12px 40px #0007;--danger:#f29898}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);overflow:hidden}button,input,select,textarea{font:inherit;color:inherit}button{border:0;border-radius:4px;background:transparent;cursor:pointer}button:hover{background:var(--hover)}button:active{background:var(--selected)}button:disabled{opacity:.4;cursor:default}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}input,select{background:var(--bg);border:1px solid var(--line);border-radius:4px}button[aria-pressed=true]{background:var(--accent-soft);color:var(--accent)}[hidden]{display:none!important}#app{height:100vh;display:flex;flex-direction:column}#web-menu{height:36px;display:flex;align-items:center;padding:0 12px;border-bottom:1px solid var(--line);background:var(--chrome);gap:2px}.wordmark{font-size:15px;font-weight:650;letter-spacing:-.5px;margin-right:16px;display:flex;align-items:center}.logo-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);margin:6px 0 0 2px}#web-menu button{height:27px;padding:0 9px}#web-title{margin-left:auto;color:var(--muted);font-size:11px}#toolbar{display:flex;align-items:center;gap:3px;min-height:43px;padding:5px 10px;background:var(--chrome);border-bottom:1px solid var(--line);user-select:none}#toolbar button{min-width:30px;height:30px;font-size:15px;position:relative}#toolbar button small{font-size:9px;position:absolute;right:4px;bottom:4px}#block-style{height:29px;border:0;background:transparent;padding:0 9px;width:125px;font-size:12px}#block-style:hover{background:var(--hover)}.divider{width:1px;height:20px;background:var(--line);margin:0 4px}.toolbar-spacer,.status-spacer{flex:1}#mode-toggle{display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);padding:0 9px!important;font-size:12px!important;white-space:nowrap}#mode-icon{font-size:16px;color:var(--accent);font-weight:650}.mode-key{font-size:10px;color:var(--muted);border-left:1px solid var(--line);padding-left:8px;margin-left:4px}#workspace{display:flex;flex:1;min-height:0;position:relative}#document-pane{flex:1;min-width:220px;min-height:0;position:relative;display:flex;flex-direction:column;overflow:hidden}#rich-editor{height:100%;overflow:auto;scrollbar-gutter:stable}#raw-editor{resize:none;outline:0;border:0;border-radius:0;flex:1;width:100%;padding:24px 30px;background:var(--bg);font:14px/1.7 Consolas,'Cascadia Code',monospace;tab-size:4;white-space:pre-wrap;overflow-wrap:anywhere}.tiptap{min-height:100%;padding:22px 38px 160px;outline:none;font-size:15px;line-height:1.65;overflow-wrap:anywhere;caret-color:var(--accent)}.tiptap>*:first-child{margin-top:0}.tiptap p{margin:0 0 .8em}.tiptap h1{font-size:2em;line-height:1.25;letter-spacing:-.6px;margin:1.1em 0 .55em;font-weight:650}.tiptap h2{font-size:1.5em;line-height:1.3;margin:1.2em 0 .55em;letter-spacing:-.3px;font-weight:630}.tiptap h3{font-size:1.15em;line-height:1.4;margin:1.15em 0 .4em}.tiptap h4,.tiptap h5,.tiptap h6{font-size:1em}.tiptap a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:text}.tiptap code{background:var(--chrome);border:1px solid var(--line);padding:1px 4px;border-radius:4px;font:13px Consolas,monospace}.tiptap pre{background:var(--chrome);padding:15px 18px;border:1px solid var(--line);border-radius:5px;overflow:auto;white-space:pre}.tiptap pre code{border:0;padding:0;line-height:1.6}.tiptap blockquote{border-left:3px solid var(--accent);margin:1em 0;padding:.1em 0 .1em 18px;color:var(--muted)}.tiptap blockquote p:last-child{margin-bottom:0}.tiptap ul,.tiptap ol{padding-left:1.5em;margin:.6em 0 1em}.tiptap li p{margin:.1em 0}.tiptap ul[data-type=taskList]{list-style:none;padding-left:0}.tiptap ul[data-type=taskList] li{display:flex;align-items:flex-start;gap:.6em}.tiptap ul[data-type=taskList] li>label{padding-top:3px}.tiptap ul[data-type=taskList] li>div{flex:1}.tiptap input[type=checkbox]{accent-color:var(--accent)}.tiptap hr{border:0;border-top:1px solid var(--line);margin:1.6em 0}.tiptap img{max-width:100%;height:auto}.tiptap table{border-collapse:collapse;table-layout:fixed;width:100%;margin:1em 0}.tiptap td,.tiptap th{border:1px solid var(--line);padding:7px 9px;vertical-align:top;position:relative;min-width:50px}.tiptap td p,.tiptap th p{margin:0}.tiptap th{background:var(--chrome);font-weight:600;text-align:left}.tiptap .selectedCell:after{content:'';position:absolute;inset:0;background:var(--selected);opacity:.5;pointer-events:none}.tiptap .is-editor-empty:first-child:before{content:attr(data-placeholder);color:var(--muted);float:left;pointer-events:none;height:0;opacity:.7}.tiptap ::selection,#raw-editor::selection{background:var(--selected)}#document-alert{padding:9px 18px;background:var(--accent-soft);color:var(--text);font-size:12px;border-top:1px solid var(--line)}#sidebar-resizer{width:5px;margin-right:-1px;background:var(--chrome);border-left:1px solid var(--line);cursor:col-resize;flex:none;touch-action:none}#sidebar-resizer:hover{background:var(--accent-soft)}#sidebar{width:var(--sidebar-width);flex:none;display:flex;flex-direction:column;background:var(--panel);min-height:0;overflow:hidden}.panel{display:flex;flex-direction:column;min-height:0}.panel-title{height:34px;display:flex;gap:8px;align-items:center;padding:0 11px;color:var(--text);font-size:12px;font-weight:600;flex:none}.panel-title .panel-hint{margin-left:auto;color:var(--muted);font-size:10px;font-weight:400}.panel-title button{height:24px;width:24px;font-size:18px;color:var(--muted)}#calculator{height:var(--calc-height);flex:none;padding-bottom:8px;border-bottom:1px solid var(--line)}#calc-expression{margin:2px 12px 0;padding:6px 9px;min-height:31px;text-align:right;font:13px Consolas,monospace;width:calc(100% - 24px);border:1px solid var(--line);border-radius:4px}#calc-result{font-size:31px;line-height:1.1;text-align:right;letter-spacing:-.7px;padding:9px 16px 0;overflow-x:auto;overflow-y:hidden;white-space:nowrap;flex:none;height:45px}#calc-error{height:18px;font-size:10px;color:var(--danger);text-align:right;padding:0 15px;white-space:nowrap;overflow:hidden}#calc-keys{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,27px);gap:3px;padding:0 12px}#calc-keys button{background:var(--bg);border:1px solid var(--line);font-size:14px;border-radius:4px}#calc-keys button:hover{background:var(--hover)}#calc-keys .operator{background:var(--chrome);color:var(--accent)}#calc-keys .equals{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:650}.insert-button{height:31px;margin:7px 12px 0;font-size:11px;color:var(--accent);background:var(--accent-soft);display:flex;align-items:center;justify-content:space-between;padding:0 10px}.insert-button span{font-size:10px;color:var(--muted)}#calc-reserve{height:var(--calc-height);flex:none;border-bottom:1px solid var(--line);align-items:center;justify-content:center;display:flex}#calc-reserve span{font-size:11px;color:var(--muted);opacity:.55}#spreadsheet{flex:1;min-height:100px;margin-top:auto}#sheet-content{display:flex;flex-direction:column;flex:1;min-height:0}.sheet-formula-row{display:flex;gap:5px;align-items:center;padding:0 8px 8px;flex:none}.sheet-address{width:48px;text-align:center;padding:5px 0;font:11px Consolas,monospace;color:var(--accent);background:var(--accent-soft);border-radius:3px;white-space:nowrap}.sheet-fx{color:var(--muted);font-style:italic;font-size:12px}.sheet-formula{min-width:0;flex:1;padding:5px 7px;font:12px Consolas,monospace;border-radius:3px}.sheet-grid{position:relative;overflow:auto;flex:1;min-height:60px;background:var(--bg);outline:none;overscroll-behavior:contain;user-select:none}.sheet-canvas{position:relative}.sheet-cell,.sheet-col,.sheet-row,.sheet-corner{position:absolute;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;height:27px;display:flex;align-items:center;font-size:12px;padding:0 7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}.sheet-cell.numeric{justify-content:flex-end;font-variant-numeric:tabular-nums}.sheet-cell.error{color:var(--danger)}.sheet-cell.selected{background:var(--accent-soft)}.sheet-cell.active{outline:2px solid var(--accent);outline-offset:-2px;z-index:1}.sheet-col,.sheet-row,.sheet-corner{justify-content:center;padding:0;background:var(--chrome);font-size:10px;color:var(--muted);z-index:2;font-variant-numeric:tabular-nums}.sheet-col.selected,.sheet-row.selected{background:var(--selected);color:var(--accent)}.sheet-corner{z-index:4}.sheet-edit{position:absolute;z-index:5;padding:0 5px;border:2px solid var(--accent);border-radius:0;height:27px;font-size:12px;outline:none;min-width:108px}.sheet-tabs{display:flex;align-items:center;gap:1px;height:32px;background:var(--chrome);border-top:1px solid var(--line);padding:0 5px;flex:none;overflow-x:auto;white-space:nowrap}.sheet-tab{font-size:11px;padding:5px 10px;height:26px;border-bottom:2px solid transparent;border-radius:0}.sheet-tab.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--bg)}.sheet-add{height:25px;width:27px;flex:none;font-size:17px;color:var(--muted)}.sheet-selection-info{height:23px;padding:4px 9px;color:var(--muted);font-size:10px;border-top:1px solid var(--line);flex:none}.ribbon-icon{font-size:15px;writing-mode:horizontal-tb}#statusbar{height:28px;display:flex;align-items:center;gap:12px;padding:0 13px;background:var(--chrome);border-top:1px solid var(--line);font-size:11px;color:var(--muted);flex:none;white-space:nowrap;overflow:hidden}#document-name{color:var(--text);max-width:33%;overflow:hidden;text-overflow:ellipsis}#document-state{font-size:10px}#theme-button{font-size:10px;height:23px;padding:0 5px;color:var(--muted)}#find-bar{display:flex;align-items:center;gap:6px;background:var(--chrome);padding:7px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}#find-bar input{padding:5px 8px;font-size:12px;width:170px}#find-bar button{height:27px;min-width:28px;font-size:12px}#find-count{font-size:10px;color:var(--muted);min-width:48px}#find-close{margin-left:auto}.popup{position:fixed;z-index:40;min-width:245px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:6px;padding:5px;max-height:80vh;overflow:auto}.popup button{display:flex;align-items:center;justify-content:space-between;gap:20px;text-align:left;width:100%;padding:7px 10px;font-size:12px;min-height:31px}.popup kbd{color:var(--muted);font:10px 'Segoe UI',sans-serif}.popup hr{margin:4px;border:0;border-top:1px solid var(--line)}#toast{position:fixed;z-index:60;bottom:42px;left:50%;transform:translateX(-50%);max-width:650px;padding:10px 16px;background:var(--text);color:var(--bg);border-radius:6px;font-size:12px;box-shadow:var(--shadow)}dialog{border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text);padding:0;width:min(680px,90vw);max-height:85vh;box-shadow:var(--shadow)}dialog::backdrop{background:#0006}.modal-header{display:flex;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}.modal-header h2{font-size:17px;font-weight:600;margin:0}.modal-header button{margin-left:auto;font-size:22px;width:28px;height:28px;color:var(--muted)}.modal-body{padding:18px 22px;overflow:auto;max-height:65vh;font-size:13px;line-height:1.6}.modal-body h3{font-size:13px;margin:18px 0 5px}.modal-body h3:first-child{margin-top:0}.modal-body p{margin:5px 0 12px}.modal-body table{border-collapse:collapse;width:100%;font-size:12px}.modal-body td,.modal-body th{text-align:left;border-bottom:1px solid var(--line);padding:6px}.modal-body kbd{font:11px Consolas,monospace;color:var(--accent)}.modal-body input{width:100%;padding:9px 11px;margin:4px 0 12px}.modal-footer{border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px;padding:12px 22px}.modal-footer button{padding:7px 14px;border:1px solid var(--line);font-size:12px}.primary{background:var(--accent)!important;color:var(--bg)!important;border-color:var(--accent)!important}.recent-row{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid var(--line)}.recent-main{flex:1;text-align:left;min-width:0;padding:7px 9px}.recent-main strong,.recent-main span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.recent-main strong{font-size:13px;font-weight:600}.recent-main span{font-size:11px;color:var(--muted)}.recent-remove{color:var(--muted);font-size:11px;align-self:center;padding:7px}.empty-recents{color:var(--muted);padding:25px 0;text-align:center}.help-note{color:var(--muted);font-size:12px}.error-note{color:var(--danger)}@media(max-width:800px){.mode-key{display:none}#toolbar{gap:0;padding:5px}#toolbar button{min-width:27px}.divider{margin:0 2px}#block-style{width:99px}.tiptap{padding:20px 22px 100px}:root{--sidebar-width:290px}}@media(max-height:650px){:root{--calc-height:292px}#calc-keys{grid-template-rows:repeat(5,23px)}#calc-result{height:38px;font-size:27px}#calc-error{height:15px}.insert-button{height:27px;margin-top:5px}}
+
+
+/* Markpad usability patch: overlay cards, icon tabs, soft wrapping, and status. */
+#workspace { isolation: isolate; }
+#document-pane { flex: 1 1 auto; width: 100%; min-width: 0; }
+#rich-editor { scrollbar-gutter: stable; }
+#sidebar {
+  position: absolute;
+  top: 7px; bottom: 7px; right: 54px;
+  width: min(var(--sidebar-width), calc(100% - 108px));
+  z-index: 5; display: flex; flex-direction: column;
+  pointer-events: none; background: transparent; overflow: visible;
+  gap: 0;
+}
+#sidebar .panel {
+  pointer-events: auto; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 8px;
+  box-shadow: var(--shadow); overflow: hidden;
+}
+#calculator { border-bottom: 1px solid var(--line); height: min(var(--calc-height), calc(100% - 120px)); min-height: 0; overflow-y: auto; }
+#calc-reserve {
+  flex: 0 0 min(var(--calc-height), calc(100% - 120px)); height: auto;
+  background: transparent; border: 0; pointer-events: none;
+}
+#spreadsheet { flex: 1 1 0; min-height: 95px; margin-top: auto; }
+#sidebar-resizer {
+  position: absolute; top: 7px; bottom: 7px;
+  right: calc(min(var(--sidebar-width), 100% - 108px) + 54px);
+  height: auto; width: 5px; z-index: 6; margin: 0;
+  background: transparent; border: 0;
+}
+#sidebar-resizer:hover { background: var(--accent-soft); }
+#workspace[data-panels="calculator"] #sidebar-resizer { bottom: auto; height: min(var(--calc-height), calc(100% - 120px)); }
+#workspace[data-panels="spreadsheet"] #sidebar-resizer { top: calc(7px + min(var(--calc-height), 100% - 120px)); }
+
+#statusbar { gap: 9px; padding: 0 9px; }
+#statusbar #document-name { max-width: 18%; }
+#caret-position, #document-totals, #selected-totals {
+  padding: 0 7px; border-left: 1px solid var(--line);
+  font-variant-numeric: tabular-nums;
+}
+#statusbar #word-wrap-button, #zoom-button {
+  font-size: 10px; height: 23px; padding: 0 6px;
+  border: 1px solid var(--line); white-space: nowrap;
+}
+#word-wrap-button[aria-pressed="false"] { color: var(--muted); }
+.no-word-wrap #raw-editor { white-space: pre; overflow-wrap: normal; overflow-x: auto; }
+.no-word-wrap .tiptap { min-width: 100%; width: max-content; overflow-wrap: normal; word-break: normal; }
+.no-word-wrap .tiptap p, .no-word-wrap .tiptap li, .no-word-wrap .tiptap blockquote { white-space: nowrap; }
+@media (max-width: 900px) {
+  #statusbar { gap: 3px; font-size: 10px; padding: 0 4px; }
+  #document-name { max-width: 12%!important; }
+  #caret-position, #document-totals, #selected-totals { padding: 0 3px; }
+}
+
+/* Sidebar cards are overlays aligned to the editor's scrollbar. Their icon
+   toggles sit immediately OUTSIDE the cards rather than consuming title space. */
+:root { --editor-scrollbar-width: 0px; --calc-card-height: 286px; }
+#rich-editor { scrollbar-gutter: auto; }
+#sidebar {
+  top: 0; bottom: 0; right: var(--editor-scrollbar-width);
+  width: min(var(--sidebar-width), calc(100% - 86px));
+  gap: 0;
+}
+#sidebar .panel { border-radius: 6px; }
+#calculator {
+  height: min(var(--calc-card-height), calc(100% - 110px));
+  flex: 0 0 min(var(--calc-card-height), calc(100% - 110px));
+  padding-top: 9px; margin: 0; border-bottom: none;
+}
+#calc-reserve { flex: 0 0 min(var(--calc-card-height), calc(100% - 110px)); }
+#spreadsheet { margin: 0; flex: 1 1 0; min-height: 110px; padding-top: 8px; }
+#sidebar-resizer {
+  top: 0; bottom: 0;
+  right: calc(min(var(--sidebar-width), 100% - 86px) + var(--editor-scrollbar-width));
+}
+#workspace[data-panels="calculator"] #sidebar-resizer {
+  bottom: auto; height: min(var(--calc-card-height), calc(100% - 110px));
+}
+#workspace[data-panels="spreadsheet"] #sidebar-resizer {
+  top: min(var(--calc-card-height), calc(100% - 110px));
+}
+
+
+
+
+/* Leaving enough scrollable space below a document makes a selection near its
+   end centerable on screen when toggling raw/format modes. */
+.tiptap { padding-bottom: 48vh; }
+#raw-editor { padding-bottom: 48vh; }
+
+/* Recent-file timestamps belong to the filename row, right-justified and
+   intentionally quieter than the filename itself. */
+.recent-main .recent-main-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; min-width: 0;
+}
+.recent-main .recent-main-header strong { flex: 1 1 0; min-width: 0; }
+.recent-main .recent-time {
+  display: block; flex: 0 0 auto; text-align: right;
+  font-style: italic; font-weight: 400; font-size: 10px;
+  color: var(--muted); opacity: .7; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Offline, language-aware colors for fenced code blocks. Decoration spans do
+   not modify the content or exported .md file. */
+:root { --syntax-keyword:#8b4dae; --syntax-type:#287d83; --syntax-string:#997011; --syntax-number:#a35324; --syntax-comment:#7a8d84; --syntax-function:#2767a2; --syntax-preprocessor:#8a4e9f; }
+:root[data-theme=dark] { --syntax-keyword:#c792ea; --syntax-type:#78dce8; --syntax-string:#e9c46a; --syntax-number:#f5a97f; --syntax-comment:#718b83; --syntax-function:#82aaff; --syntax-preprocessor:#d09de5; }
+.mp-syntax-keyword { color: var(--syntax-keyword); font-weight: 600; }
+.mp-syntax-type { color: var(--syntax-type); }
+.mp-syntax-string { color: var(--syntax-string); }
+.mp-syntax-number { color: var(--syntax-number); }
+.mp-syntax-comment { color: var(--syntax-comment); font-style: italic; }
+.mp-syntax-function { color: var(--syntax-function); }
+.mp-syntax-preprocessor { color: var(--syntax-preprocessor); }
+
+/* Editable contentDOM is transparent only in the portable-runtime fallback.
+   The visually colored layer is noninteractive and never enters the document. */
+.tiptap pre.mp-codeblock { position: relative; }
+.tiptap pre.mp-codeblock .mp-code-input {
+  display: block; position: relative; z-index: 1; min-height: 1.6em;
+  white-space: pre; caret-color: var(--accent);
+}
+.tiptap pre.mp-codeblock.mp-code-colored .mp-code-input { color: transparent; }
+.tiptap pre.mp-codeblock .mp-code-overlay {
+  position: absolute; top: 15px; left: 18px; z-index: 0;
+  pointer-events: none; white-space: pre; line-height: 1.6;
+  border: 0; padding: 0; margin: 0; background: transparent;
+}
+
+/* Sidebar tabs are siblings of the panels, not descendants of a movable ribbon.
+   Each control uses ONLY its own aria-expanded state. Never translate or inset
+   a common parent when either tool opens. Closed tabs stay beside the editor
+   scrollbar; open tabs sit 4px left of their own card. */
+#workspace > .sidebar-tab {
+  position: absolute;
+  right: var(--editor-scrollbar-width, 0px);
+  z-index: 7;
+  width: 31px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  writing-mode: horizontal-tb;
+  pointer-events: auto;
+  user-select: none;
+  white-space: nowrap;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--chrome);
+  color: var(--muted);
+  box-shadow: 0 2px 8px #0002;
+}
+#workspace > .sidebar-tab[aria-expanded="true"] {
+  right: calc(min(var(--sidebar-width), 100% - 86px) + var(--editor-scrollbar-width, 0px) + 4px);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+#workspace > #calc-tab { top: 0; bottom: auto; }
+#workspace > #sheet-tab { top: auto; bottom: 0; }
+.sidebar-tab .ribbon-icon { font-size: 18px; line-height: 1; }
+#calc-tab .ribbon-icon { display: flex; align-items: center; justify-content: center; }
+/* Complete update: status and deferred rendering. Panels/tabs retain v2 layout. */
+#file-size{font-variant-numeric:tabular-nums;flex:none;font-size:10px}
+#format-state{font-size:10px;color:var(--accent)}
+#rich-editor.large-document .tiptap>p{content-visibility:auto;contain-intrinsic-size:auto 30px}
+#statusbar .status-spacer{min-width:0}
+.sheet-cell.referenced{outline:2px solid var(--accent);outline-offset:-2px;background:var(--selected);z-index:1}
+.sheet-resize-handle{position:absolute;z-index:6;touch-action:none}
+.sheet-resize-handle.column{right:0;top:0;bottom:0;width:6px;cursor:col-resize}
+.sheet-resize-handle.row{left:0;right:0;bottom:0;height:6px;cursor:row-resize}
+.sheet-resize-handle:hover{background:var(--accent);opacity:.6}
+.sheet-edit{min-width:0}
+
+/* Header edges belong to the header under the pointer, not its neighbour. */
+.sheet-resize-handle.column{width:4px;right:auto;left:auto;top:0;bottom:0}
+.sheet-resize-handle.column.start{left:0}
+.sheet-resize-handle.column.end{right:0}
+.sheet-resize-handle.row{height:4px;bottom:auto;top:auto;left:0;right:0}
+.sheet-resize-handle.row.start{top:0}
+.sheet-resize-handle.row.end{bottom:0}
+.sheet-cell{padding:4px 7px;white-space:normal;line-height:17px}
+.sheet-cell-value{display:block;min-width:0;width:100%;white-space:pre-wrap;overflow-wrap:anywhere;overflow:hidden;max-height:100%;line-height:17px}
+.sheet-cell.numeric .sheet-cell-value{text-align:right}
+.sheet-selection-info{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sheet-insert{flex:0 0 29px;min-height:29px;margin:5px 8px 7px}
+.sheet-insert strong{font-weight:400}
+.tiptap a[href^="#markpad-cell-"]{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);cursor:text}
+
+/* Transient table expansion UI is outside the editor document and serializer. */
+#rich-editor{position:relative}
+.markpad-table-ghosts{position:absolute;pointer-events:none;z-index:1;overflow:visible}
+.markpad-table-ghost{position:absolute;pointer-events:auto;resize:none;overflow:hidden;border:1px dashed var(--muted);border-radius:0;background:var(--accent-soft);opacity:.24;color:var(--accent);font:inherit;padding:7px 9px;line-height:1.65;min-width:0;outline:none;caret-color:var(--accent)}
+.markpad-table-ghost::placeholder{color:var(--muted);text-align:center}
+.markpad-table-ghost:hover{opacity:.5}
+.markpad-table-ghost:focus{opacity:.8;border-color:var(--accent);outline:1px solid var(--accent);outline-offset:-1px}
+.tiptap .markpad-responsive-table td,.tiptap .markpad-responsive-table th{min-width:0;overflow-wrap:anywhere;word-break:normal}

@@ -1,0 +1,122 @@
+[
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Ctrl+B still formats document",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Ctrl+I works with bold",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Fenced C block is editable and rendered",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Tab inside code stays in editor",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Tab indents code",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Code indentation has no errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Formatting completion preserves calculator focus",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "No-edit staged load preserves exact original CRLF Markdown",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "No-edit staged load does not invent a changed file size",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Manual mode toggle cancels deferred formatting",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Canceling formatting preserves complete source",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Locked formula stored correctly",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Locked formula evaluates correctly",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Deleting referenced column marks dependent formula invalid",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Undo restores deleted column and locked formula",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Saved worksheet automatically opens on reload",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Formula evaluates after save/reopen",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Reopened worksheet has no renderer exceptions",
+    "pass": true,
+    "detail": []
+  }
+]

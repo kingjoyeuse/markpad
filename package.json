@@ -1,0 +1,38 @@
+{
+  "name": "markpad",
+  "productName": "Markpad",
+  "version": "0.1.3",
+  "private": true,
+  "description": "A local Markdown notepad with a calculator, worksheets, and recoverable drafts.",
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "npm run build && electron .",
+    "test": "node scripts/test.mjs",
+    "package:win": "npm run build && node scripts/package-win.mjs",
+    "build:portable": "npm run build && node scripts/sync-portable.mjs",
+    "package:project": "npm run package:win && node scripts/package-project.mjs",
+    "build:offline": "node scripts/build-offline.mjs",
+    "release:win": "python scripts/build-releases.py --runtime bin"
+  },
+  "dependencies": {
+    "@tiptap/core": "3.33.0",
+    "@tiptap/extension-image": "3.33.0",
+    "@tiptap/extension-placeholder": "3.33.0",
+    "@tiptap/extension-table": "3.33.0",
+    "@tiptap/extension-task-item": "3.33.0",
+    "@tiptap/extension-task-list": "3.33.0",
+    "@tiptap/markdown": "3.33.0",
+    "@tiptap/starter-kit": "3.33.0"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "esbuild": "0.25.12"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kingjoyeuse/markpad.git"
+  }
+}

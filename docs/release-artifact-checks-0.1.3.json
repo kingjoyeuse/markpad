@@ -1,0 +1,9 @@
+{
+  "passed": [
+    "portable CRC, layout, app/source parity, marker, locale, icon/version resources",
+    "embedded installer ZIP CRC, script and payload checksum, every installed file hash, uninstaller",
+    "published artifact SHA-256 checksums and source-hash correspondence"
+  ],
+  "coreTests": 61,
+  "windowsExecutionVerified": false
+}

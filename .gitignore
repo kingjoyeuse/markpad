@@ -1,0 +1,33 @@
+node_modules/
+app/
+dist/
+artifacts/
+test-results/
+tests/artifacts/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+# Generated portable runtime: current bin/ layout and legacy root layout.
+/bin/
+/Markpad.exe
+/*.dll
+/*.pak
+/*.bin
+/*.dat
+/vk_swiftshader_icd.json
+/locales/
+/resources/
+/LICENSE
+/LICENSES.chromium.html
+/version
+/snapshot_blob.bin
+/v8_context_snapshot.bin
+
+# User data, shortcuts, and local setup/publishing output.
+/data/
+*.lnk
+.env
+.env.*
+*.tmp
+*.bak

@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createWorkbook,setCell,getCellValue,validateWorkbook} from '../src/core/workbook.js';
+import {editWorksheetAxis,AxisGeometry,cycleReferenceLocks,referenceAtCaret} from '../src/core/sheet-operations.js';
+import {serializeDocument,parseDocument} from '../src/core/markdown-workbook.js';
+import {utf8Bytes,formatBytes} from '../src/core/file-size.js';
+const book=()=>{const w=createWorkbook();setCell(w,w.activeSheetId,'A1','10');setCell(w,w.activeSheetId,'A2','20');setCell(w,w.activeSheetId,'C1','=$A$1+A2');return w;};
+test('UTF-8 sizes account for unicode, line endings and units',()=>{for(const s of ['','hello','£25\r\n📝','é'])assert.equal(utf8Bytes(s),Buffer.byteLength(s));assert.equal(formatBytes(1024),'1.0 KiB');});
+test('row insertion moves content and all dollar-locked references',()=>{const w=book(),n=editWorksheetAxis(w,w.activeSheetId,'row',0);assert.equal(n.sheets[0].cells.C2,'=$A$2+A3');assert.equal(getCellValue(n,n.activeSheetId,'C2'),30);assert.equal(w.sheets[0].cells.A1,'10');});
+test('column deletion shifts surviving cells, references and produces REF for deleted cells',()=>{const w=book();const n=editWorksheetAxis(w,w.activeSheetId,'column',0,{remove:true});assert.equal(n.sheets[0].cells.B1,'=#REF!+#REF!');assert.equal(getCellValue(n,n.activeSheetId,'B1'),'#REF!');});
+test('structural changes adjust cross-sheet references but not quoted strings or unrelated sheets',()=>{const w=book();w.sheets.push({id:'b',name:'Other',cells:{A1:'=Data!A1+A1',B1:'="A1"',C1:"='Data'!$A$2"}});const n=editWorksheetAxis(w,w.activeSheetId,'row',0);assert.equal(n.sheets[1].cells.A1,'=Data!A2+A1');assert.equal(n.sheets[1].cells.B1,'="A1"');assert.equal(n.sheets[1].cells.C1,"='Data'!$A$3");});
+test('deleted ranges shrink to surviving rows',()=>{const w=book();w.sheets[0].cells.C4='=SUM(A1:A3)';const n=editWorksheetAxis(w,w.activeSheetId,'row',0,{remove:true});assert.equal(n.sheets[0].cells.C3,'=SUM(A1:A2)');});
+test('dimensions persist in Markdown metadata and shift with structural edits',()=>{const w=book();w.sheets[0].columnWidths={0:180,2:70};w.sheets[0].rowHeights={0:50};const parsed=parseDocument(serializeDocument('test',w));assert.deepEqual(parsed.workbook.sheets[0].columnWidths,w.sheets[0].columnWidths);const n=editWorksheetAxis(w,w.activeSheetId,'column',0);assert.deepEqual(n.sheets[0].columnWidths,{1:180,3:70});});
+test('invalid dimension data is rejected',()=>{const w=book();w.sheets[0].rowHeights={0:-100};assert.throws(()=>validateWorkbook(w));});
+test('sparse geometry handles resizes and deep navigation',()=>{const g=new AxisGeometry(27,1048576,{0:50,2:40});assert.equal(g.offset(3),117);assert.equal(g.indexAt(90),2);assert.equal(g.indexAt(g.offset(900000)+1),900000);});
+test('F4 cycles all four reference-lock states',()=>{let ref='A1';for(const expected of ['$A$1','A$1','$A1','A1']){ref=cycleReferenceLocks(ref);assert.equal(ref,expected);}});
+test('F4 locates only a reference at the caret, not text or functions',()=>{assert.deepEqual(referenceAtCaret('=A1+B2',3),{start:1,end:3,text:'A1'});assert.equal(referenceAtCaret('="A1"',3),null);assert.equal(referenceAtCaret('=LOG10(4)',6),null);});

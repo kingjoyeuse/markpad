@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Untitled — Markpad</title><link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div id="app">
+  <header id="web-menu" hidden><span class="wordmark">Markpad<span class="logo-dot"></span></span><button data-menu="file">File</button><button data-menu="edit">Edit</button><button data-menu="view">View</button><button data-action="recent">Recent</button><button data-action="help">Help</button><span id="web-title">Untitled</span></header>
+  <div id="toolbar" role="toolbar" aria-label="Markdown formatting">
+    <select id="block-style" aria-label="Paragraph style" title="Paragraph style"><option value="paragraph">Paragraph</option><option value="h1">Heading 1</option><option value="h2">Heading 2</option><option value="h3">Heading 3</option></select>
+    <span class="divider"></span>
+    <button data-format="bold" aria-label="Bold" title="Bold (Ctrl+B)"><b>B</b></button>
+    <button data-format="italic" aria-label="Italic" title="Italic (Ctrl+I)"><i>I</i></button>
+    <button data-format="underline" aria-label="Underline" title="Underline (Ctrl+U)"><u>U</u></button>
+    <button data-format="strike" aria-label="Strikethrough" title="Strikethrough"><s>S</s></button>
+    <span class="divider"></span>
+    <button data-format="bulletList" aria-label="Bullet list" title="Bullet list">☷</button>
+    <button data-format="orderedList" aria-label="Numbered list" title="Numbered list">≡<small>1</small></button>
+    <button data-format="taskList" aria-label="Checklist" title="Checklist">☑</button>
+    <button data-format="blockquote" aria-label="Quote" title="Quote">❞</button>
+    <span class="divider"></span>
+    <button data-format="link" aria-label="Insert link" title="Insert link (Ctrl+K)">↗</button>
+    <button data-format="code" aria-label="Inline code" title="Inline code">&lt;&gt;</button>
+    <button data-format="codeBlock" aria-label="Code block" title="Code block">{ }</button>
+    <button data-format="table" aria-label="Insert table" title="Insert Markdown table">▦</button>
+    <button data-format="horizontalRule" aria-label="Horizontal rule" title="Horizontal rule">—</button>
+    <span class="toolbar-spacer"></span>
+    <button id="mode-toggle" title="Switch formatted / raw (Ctrl+Tab)" aria-label="Switch formatted and raw modes"><span id="mode-icon">¶</span><span id="mode-label">Formatted</span><span class="mode-key">Ctrl+Tab</span></button>
+  </div>
+  <div id="find-bar" hidden><input id="find-input" placeholder="Find in document" aria-label="Find text"><input id="replace-input" hidden placeholder="Replace with" aria-label="Replacement text"><span id="find-count"></span><button id="find-prev" title="Previous match">↑</button><button id="find-next" title="Next match">↓</button><button id="replace-one" hidden>Replace</button><button id="replace-all" hidden>All</button><button id="find-close" title="Close find">×</button></div>
+  <main id="workspace" data-tab-layout="independent-v2" data-panels="none">
+    <section id="document-pane" aria-label="Document"><div id="rich-editor"></div><textarea id="raw-editor" aria-label="Raw Markdown editor" spellcheck="false" hidden></textarea><div id="document-alert" hidden></div></section>
+    <div id="sidebar-resizer" role="separator" aria-label="Resize sidebar" aria-orientation="vertical" tabindex="0" hidden></div>
+    <aside id="sidebar" aria-label="Calculation tools" hidden>
+      <section id="calculator" class="panel" aria-label="Calculator" hidden>
+        <input id="calc-expression" aria-label="Calculator expression" autocomplete="off" spellcheck="false" placeholder="Enter a calculation">
+        <output id="calc-result" aria-live="polite">0</output><div id="calc-error" role="status"></div>
+        <div id="calc-keys"></div>
+        <button id="calc-insert" class="insert-button" title="Insert value (Alt+Shift+Left / Alt+Shift+keypad Enter)">← Insert result <span>Alt+Shift+←</span></button>
+      </section>
+      <div id="calc-reserve" aria-hidden="true" hidden></div>
+      <section id="spreadsheet" class="panel" aria-label="Spreadsheet" hidden>
+        <div id="sheet-content"></div>
+      </section>
+    </aside>
+    <button id="calc-tab" class="sidebar-tab" title="Toggle calculator (Alt+Shift+Up / Down)" aria-label="Toggle calculator" aria-expanded="false"><span class="ribbon-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M8 7h8M9.5 12v5m-2.5-2.5h5M14 13h2M14 16h2"/></svg></span></button><button id="sheet-tab" class="sidebar-tab" title="Toggle spreadsheet (Alt+Ctrl+Up / Down)" aria-label="Toggle spreadsheet" aria-expanded="false"><span class="ribbon-icon">▦</span></button>
+  </main>
+  <footer id="statusbar"><span id="document-name">Untitled</span><span id="document-state">New note</span><span id="file-size" title="UTF-8 file size">Size: 0 B</span><span id="format-state" hidden></span><span class="status-spacer"></span><span id="word-count" hidden>0 words</span><span id="selection-count" hidden></span><span id="caret-position" title="Cursor line and column">Ln 1, Col 1</span><span id="document-totals" title="Document totals">0 chars · 0 words · 1 line</span><span id="selected-totals" title="Selected text totals" hidden></span><button id="word-wrap-button" type="button" title="Toggle word wrap (default on)" aria-pressed="true">Wrap on</button><button id="zoom-button" type="button" title="Reset zoom to 100% (Ctrl+mouse wheel to zoom)">100%</button><button id="theme-button" title="Theme: System">◐ System</button></footer>
+</div>
+<div id="popup-menu" class="popup" role="menu" hidden></div>
+<div id="toast" role="status" hidden></div>
+<dialog id="modal"><div id="modal-content"></div></dialog>
+<input type="file" id="browser-open" accept=".md,.markdown,.txt,text/plain,text/markdown" hidden>
+<script src="main.js"></script>
+<script src="patch.js"></script>
+<script type="module" src="runtime-enhancements.js"></script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+[
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Ctrl-click selects non-adjacent columns only",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Column selection includes empty displayed rows",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Ctrl-click toggles a selected header off",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Shift-click selects inclusive column interval",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Ctrl-click selects non-adjacent rows",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Shift-click rows extends from latest plain/Ctrl anchor",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Selected columns auto-fit to one widest width, including offscreen content",
+    "pass": true,
+    "detail": {
+      "0": 307,
+      "2": 307
+    }
+  },
+  {
+    "test": "Right side of A/B seam fits B, not A",
+    "pass": true,
+    "detail": {
+      "0": 108,
+      "1": 69
+    }
+  },
+  {
+    "test": "Left side of A/B seam fits A",
+    "pass": true,
+    "detail": {
+      "widths": {
+        "0": 307,
+        "1": 69
+      },
+      "debug": {
+        "click": null,
+        "drag": null,
+        "selected": null,
+        "scroll": 0
+      }
+    }
+  },
+  {
+    "test": "Selected rows auto-fit to common tallest multiline content",
+    "pass": true,
+    "detail": {
+      "0": 60,
+      "1": 60
+    }
+  },
+  {
+    "test": "Left-of-A drag sets sheet-wide default width",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "All-column resize stays sparse",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Above-row-1 drag resizes distant and future rows",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Sheet-wide dimensions survive save/reopen",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Insert-cell button creates a real linked document value",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Inserting returns keyboard focus to document",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Spreadsheet edit updates document label",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Whole linked-label replacement updates original spreadsheet cell",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Whole replacement retains the live link",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Undo of a document edit restores the linked source cell without undoing insertion",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Multiple occurrences can link to the same cell",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Editing one occurrence updates the other occurrence",
+    "pass": true,
+    "detail": {
+      "values": [
+        "42",
+        "42"
+      ],
+      "links": {
+        "cell-mwa3ef60-zg8fom9h8oq": {
+          "sheetId": "sheet-mwa3ef14-squ2jty7va",
+          "address": "A1",
+          "lastText": "42"
+        },
+        "cell-mwa3ef98-ek4dyivv7r": {
+          "sheetId": "sheet-mwa3ef14-squ2jty7va",
+          "address": "A1",
+          "lastText": "42"
+        }
+      },
+      "cells": {
+        "A1": "42",
+        "B1": "=A1*2"
+      },
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Before: "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "#markpad-cell-cell-mwa3ef60-zg8fom9h8oq",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null,
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "42"
+              },
+              {
+                "type": "text",
+                "text": " / "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "#markpad-cell-cell-mwa3ef98-ek4dyivv7r",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null,
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "42"
+              }
+            ]
+          }
+        ]
+      },
+      "selection": {
+        "type": "text",
+        "anchor": 11,
+        "head": 11
+      }
+    }
+  },
+  {
+    "test": "Linked document can switch to Raw",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Editing raw Markdown link label updates spreadsheet",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Raw-mode editing updates peer link labels",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Bindings survive Raw/Formatted switching",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Linked file writes versioned metadata",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Bindings restore on fresh document load",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "A first edit immediately after reopening updates the linked source",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Undo immediately after reopening restores both linked sides",
+    "pass": true,
+    "detail": {
+      "cells": {
+        "A1": "73",
+        "B1": "=A1*2"
+      },
+      "doc": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Before: "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "#markpad-cell-cell-mwa3ef60-zg8fom9h8oq",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null,
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "73"
+              },
+              {
+                "type": "text",
+                "text": " / "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "#markpad-cell-cell-mwa3ef98-ek4dyivv7r",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": null,
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "73"
+              }
+            ]
+          }
+        ]
+      },
+      "links": {
+        "cell-mwa3ef60-zg8fom9h8oq": {
+          "sheetId": "sheet-mwa3ef14-squ2jty7va",
+          "address": "A1",
+          "lastText": "73"
+        },
+        "cell-mwa3ef98-ek4dyivv7r": {
+          "sheetId": "sheet-mwa3ef14-squ2jty7va",
+          "address": "A1",
+          "lastText": "73"
+        }
+      },
+      "selection": {
+        "type": "text",
+        "anchor": 9,
+        "head": 11
+      }
+    }
+  },
+  {
+    "test": "Restored bindings remain live",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Multiple cells insert a Markdown table",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Each table value keeps its own live cell binding",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Linked table updates literals and dependent formulas",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Editing a linked table cell updates worksheet input",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Document table edit recalculates linked dependent formula",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Document links follow cells after row insertion",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Row insertion preserves linked values",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Deleting linked source row displays REF rather than wrong neighbour",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Undo restores deleted linked targets",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Linked editor and sizing interactions have no renderer errors",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Renderer boot has no exceptions",
+    "pass": true,
+    "detail": []
+  },
+  {
+    "test": "Linked table save/reopen retains bindings and displayed values",
+    "pass": true,
+    "detail": null
+  },
+  {
+    "test": "Reopened linked table has no renderer errors",
+    "pass": true,
+    "detail": []
+  }
+]

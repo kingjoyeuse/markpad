@@ -1,0 +1,322 @@
+TAP version 13
+# Subtest: UTF-8 sizes account for unicode, line endings and units
+ok 1 - UTF-8 sizes account for unicode, line endings and units
+  ---
+  duration_ms: 1.020593
+  type: 'test'
+  ...
+# Subtest: row insertion moves content and all dollar-locked references
+ok 2 - row insertion moves content and all dollar-locked references
+  ---
+  duration_ms: 17.039299
+  type: 'test'
+  ...
+# Subtest: column deletion shifts surviving cells, references and produces REF for deleted cells
+ok 3 - column deletion shifts surviving cells, references and produces REF for deleted cells
+  ---
+  duration_ms: 5.985285
+  type: 'test'
+  ...
+# Subtest: structural changes adjust cross-sheet references but not quoted strings or unrelated sheets
+ok 4 - structural changes adjust cross-sheet references but not quoted strings or unrelated sheets
+  ---
+  duration_ms: 0.427206
+  type: 'test'
+  ...
+# Subtest: deleted ranges shrink to surviving rows
+ok 5 - deleted ranges shrink to surviving rows
+  ---
+  duration_ms: 0.649091
+  type: 'test'
+  ...
+# Subtest: dimensions persist in Markdown metadata and shift with structural edits
+ok 6 - dimensions persist in Markdown metadata and shift with structural edits
+  ---
+  duration_ms: 2.254097
+  type: 'test'
+  ...
+# Subtest: invalid dimension data is rejected
+ok 7 - invalid dimension data is rejected
+  ---
+  duration_ms: 4.484737
+  type: 'test'
+  ...
+# Subtest: sparse geometry handles resizes and deep navigation
+ok 8 - sparse geometry handles resizes and deep navigation
+  ---
+  duration_ms: 0.239842
+  type: 'test'
+  ...
+# Subtest: F4 cycles all four reference-lock states
+ok 9 - F4 cycles all four reference-lock states
+  ---
+  duration_ms: 0.341375
+  type: 'test'
+  ...
+# Subtest: F4 locates only a reference at the caret, not text or functions
+ok 10 - F4 locates only a reference at the caret, not text or functions
+  ---
+  duration_ms: 0.518924
+  type: 'test'
+  ...
+# Subtest: numeric selections accept currency, valid separators and scientific notation
+ok 11 - numeric selections accept currency, valid separators and scientific notation
+  ---
+  duration_ms: 1.662993
+  type: 'test'
+  ...
+# Subtest: malformed grouping and textual currency do not silently turn into numbers
+ok 12 - malformed grouping and textual currency do not silently turn into numbers
+  ---
+  duration_ms: 1.852529
+  type: 'test'
+  ...
+# Subtest: arithmetic implements precedence, parentheses, percentages and unary minus
+ok 13 - arithmetic implements precedence, parentheses, percentages and unary minus
+  ---
+  duration_ms: 1.824698
+  type: 'test'
+  ...
+# Subtest: functions parse comma separated arguments and IF only evaluates selected branch
+ok 14 - functions parse comma separated arguments and IF only evaluates selected branch
+  ---
+  duration_ms: 0.815542
+  type: 'test'
+  ...
+# Subtest: untrusted expressions are never executable JavaScript
+ok 15 - untrusted expressions are never executable JavaScript
+  ---
+  duration_ms: 1.312263
+  type: 'test'
+  ...
+# Subtest: formatting removes floating point noise while preserving ordinary magnitude
+ok 16 - formatting removes floating point noise while preserving ordinary magnitude
+  ---
+  duration_ms: 0.434767
+  type: 'test'
+  ...
+# Subtest: addresses, bounds and literal input retain types
+ok 17 - addresses, bounds and literal input retain types
+  ---
+  duration_ms: 2.801974
+  type: 'test'
+  ...
+# Subtest: spreadsheet ranges, dependencies and cross-sheet names evaluate
+ok 18 - spreadsheet ranges, dependencies and cross-sheet names evaluate
+  ---
+  duration_ms: 0.772558
+  type: 'test'
+  ...
+# Subtest: circular, missing, enormous and invalid references have clear errors
+ok 19 - circular, missing, enormous and invalid references have clear errors
+  ---
+  duration_ms: 0.537091
+  type: 'test'
+  ...
+# Subtest: fill adjusts relative references and preserves dollars and text
+ok 20 - fill adjusts relative references and preserves dollars and text
+  ---
+  duration_ms: 0.679457
+  type: 'test'
+  ...
+# Subtest: empty workbook does not add sections and ordinary tables are not imported
+ok 21 - empty workbook does not add sections and ordinary tables are not imported
+  ---
+  duration_ms: 0.796133
+  type: 'test'
+  ...
+# Subtest: populated worksheets save readable values and preserve formulas, exact inputs and body
+ok 22 - populated worksheets save readable values and preserve formulas, exact inputs and body
+  ---
+  duration_ms: 6.602296
+  type: 'test'
+  ...
+# Subtest: empty named tabs generate a minimal table once any workbook tab has values
+ok 23 - empty named tabs generate a minimal table once any workbook tab has values
+  ---
+  duration_ms: 0.251981
+  type: 'test'
+  ...
+# Subtest: editing generated table values never silently restores stale formula metadata
+ok 24 - editing generated table values never silently restores stale formula metadata
+  ---
+  duration_ms: 0.250108
+  type: 'test'
+  ...
+# Subtest: truncated or corrupt metadata stays intact in the main document
+ok 25 - truncated or corrupt metadata stays intact in the main document
+  ---
+  duration_ms: 0.275736
+  type: 'test'
+  ...
+# Subtest: a quoted example workbook inside a fenced block stays ordinary text
+ok 26 - a quoted example workbook inside a fenced block stays ordinary text
+  ---
+  duration_ms: 0.212802
+  type: 'test'
+  ...
+# Subtest: CRLF conversion retains spreadsheet data
+ok 27 - CRLF conversion retains spreadsheet data
+  ---
+  duration_ms: 0.239802
+  type: 'test'
+  ...
+# Subtest: unsafe or duplicate metadata is rejected and sparse export is bounded
+ok 28 - unsafe or duplicate metadata is rejected and sparse export is bounded
+  ---
+  duration_ms: 0.179792
+  type: 'test'
+  ...
+# Subtest: native window icon is an actual transparent 256px PNG
+ok 29 - native window icon is an actual transparent 256px PNG
+  ---
+  duration_ms: 12.629455
+  type: 'test'
+  ...
+# Subtest: Windows icon has valid multi-resolution ICO resource entries
+ok 30 - Windows icon has valid multi-resolution ICO resource entries
+  ---
+  duration_ms: 1.605125
+  type: 'test'
+  ...
+# Subtest: native window and Windows packaging both include the branded icon
+ok 31 - native window and Windows packaging both include the branded icon
+  ---
+  duration_ms: 3.108757
+  type: 'test'
+  ...
+# Subtest: File > Open reuses only untouched untitled blank documents
+ok 32 - File > Open reuses only untouched untitled blank documents
+  ---
+  duration_ms: 0.845138
+  type: 'test'
+  ...
+# Subtest: native File > Open flushes the renderer and can reload into the same window
+ok 33 - native File > Open flushes the renderer and can reload into the same window
+  ---
+  duration_ms: 1.538214
+  type: 'test'
+  ...
+# Subtest: calculator and spreadsheet ribbon icons are distinct and spreadsheet is at bottom
+ok 34 - calculator and spreadsheet ribbon icons are distinct and spreadsheet is at bottom
+  ---
+  duration_ms: 0.420635
+  type: 'test'
+  ...
+# Subtest: independent windows retain different unsaved drafts after restart
+ok 35 - independent windows retain different unsaved drafts after restart
+  ---
+  duration_ms: 49.482525
+  type: 'test'
+  ...
+# Subtest: an edited saved file remains a recovery draft without changing the disk file
+ok 36 - an edited saved file remains a recovery draft without changing the disk file
+  ---
+  duration_ms: 23.014929
+  type: 'test'
+  ...
+# Subtest: a corrupted latest record restores the last validated backup
+ok 37 - a corrupted latest record restores the last validated backup
+  ---
+  duration_ms: 18.640328
+  type: 'test'
+  ...
+# Subtest: queued updates and close retain the final keystroke snapshot
+ok 38 - queued updates and close retain the final keystroke snapshot
+  ---
+  duration_ms: 40.28395
+  type: 'test'
+  ...
+# Subtest: save completion merges a new file identity without replacing a later queued edit
+ok 39 - save completion merges a new file identity without replacing a later queued edit
+  ---
+  duration_ms: 19.010013
+  type: 'test'
+  ...
+# Subtest: forget removes only the selected recovery record, never its original file
+ok 40 - forget removes only the selected recovery record, never its original file
+  ---
+  duration_ms: 16.106359
+  type: 'test'
+  ...
+# Subtest: atomic file save replaces exact UTF-8 data and fingerprints detect outside edits
+ok 41 - atomic file save replaces exact UTF-8 data and fingerprints detect outside edits
+  ---
+  duration_ms: 5.588414
+  type: 'test'
+  ...
+# Subtest: theme defaults to system, persists, and rejects unknown values
+ok 42 - theme defaults to system, persists, and rejects unknown values
+  ---
+  duration_ms: 4.641744
+  type: 'test'
+  ...
+# Subtest: invalid recovery records and invalid document patches cannot select disk paths
+ok 43 - invalid recovery records and invalid document patches cannot select disk paths
+  ---
+  duration_ms: 3.238955
+  type: 'test'
+  ...
+# Subtest: UTF-8 decoding preserves BOM and line endings and rejects lossy or UTF-16 input
+ok 44 - UTF-8 decoding preserves BOM and line endings and rejects lossy or UTF-16 input
+  ---
+  duration_ms: 1.067984
+  type: 'test'
+  ...
+# Subtest: sidebar tabs no longer have a shared movable ribbon ancestor
+ok 45 - sidebar tabs no longer have a shared movable ribbon ancestor
+  ---
+  duration_ms: 1.239222
+  type: 'test'
+  ...
+# Subtest: each tool has its own expanded offset and fixed vertical anchor
+ok 46 - each tool has its own expanded offset and fixed vertical anchor
+  ---
+  duration_ms: 0.257039
+  type: 'test'
+  ...
+# Subtest: source, preview, bin and legacy runtime HTML/styles are byte-identical
+ok 47 - source, preview, bin and legacy runtime HTML/styles are byte-identical
+  ---
+  duration_ms: 1.599197
+  type: 'test'
+  ...
+# Subtest: portable runtime captures Tab in both document modes before focus navigation
+ok 48 - portable runtime captures Tab in both document modes before focus navigation
+  ---
+  duration_ms: 0.792327
+  type: 'test'
+  ...
+# Subtest: editor code block Tab inserts indentation instead of moving focus
+ok 49 - editor code block Tab inserts indentation instead of moving focus
+  ---
+  duration_ms: 0.250048
+  type: 'test'
+  ...
+# Subtest: F4 skips reference-looking sheet names and quoted sheet qualifiers
+ok 50 - F4 skips reference-looking sheet names and quoted sheet qualifiers
+  ---
+  duration_ms: 1.942245
+  type: 'test'
+  ...
+# Subtest: Complete-update source and both application runtimes contain identical deployed bytes
+ok 51 - Complete-update source and both application runtimes contain identical deployed bytes
+  ---
+  duration_ms: 8.310148
+  type: 'test'
+  ...
+# Subtest: Small Windows icon frames contain valid 32-bit DIBs with matching transparency masks
+ok 52 - Small Windows icon frames contain valid 32-bit DIBs with matching transparency masks
+  ---
+  duration_ms: 3.036789
+  type: 'test'
+  ...
+1..52
+# tests 52
+# suites 0
+# pass 52
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 369.667941

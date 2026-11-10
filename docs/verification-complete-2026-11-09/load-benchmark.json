@@ -1,0 +1,50 @@
+[
+  {
+    "baseline": true,
+    "editable": 4211.099999999977,
+    "pending": false,
+    "total": 4213.199999999953
+  },
+  {
+    "baseline": false,
+    "editable": 337,
+    "pending": true,
+    "total": 4038.29999999993,
+    "editableMs": 387.20000000006985,
+    "parseMs": 3367.1999999999534,
+    "hydrateMs": 162.69999999995343,
+    "formattedMs": 4080
+  },
+  {
+    "baseline": true,
+    "editable": 4184.399999999907,
+    "pending": false,
+    "total": 4186.699999999953
+  },
+  {
+    "baseline": false,
+    "editable": 351.19999999995343,
+    "pending": true,
+    "total": 4092.5,
+    "editableMs": 402.19999999995343,
+    "parseMs": 3428.9000000001397,
+    "hydrateMs": 165.9000000001397,
+    "formattedMs": 4157
+  },
+  {
+    "baseline": true,
+    "editable": 4337.90000000014,
+    "pending": false,
+    "total": 4339.300000000047
+  },
+  {
+    "baseline": false,
+    "editable": 310.5999999998603,
+    "pending": true,
+    "total": 3857.6999999999534,
+    "editableMs": 373.9000000001397,
+    "parseMs": 3252.3000000000466,
+    "hydrateMs": 154.89999999990687,
+    "formattedMs": 3921.600000000093
+  }
+]
