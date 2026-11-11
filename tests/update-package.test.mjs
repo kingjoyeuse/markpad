@@ -16,7 +16,7 @@ test('Complete-update source and both application runtimes contain identical dep
   for(const root of roots)assert.deepEqual(fs.readFileSync(path.join(root,source)),fs.readFileSync(source),path.join(root,source));
  }
  for(const asset of ['markpad.ico','markpad.png'])for(const root of roots)assert.deepEqual(fs.readFileSync(path.join(root,'assets',asset)),fs.readFileSync(path.join('assets',asset)));
- assert.equal(JSON.parse(fs.readFileSync('app/build-info.json')).release,'releases-0.1.3');
+ assert.equal(JSON.parse(fs.readFileSync('app/build-info.json')).release,'releases-0.1.4');
 });
 test('Small Windows icon frames contain valid 32-bit DIBs with matching transparency masks',()=>{
  const ico=fs.readFileSync('assets/markpad.ico');let checked=0;

@@ -1,5 +1,5 @@
 ﻿[CmdletBinding()]
-param([ValidateSet('private','public')][string]$Visibility = 'private', [switch]$SourceOnly)
+param([ValidateSet('private','public')][string]$Visibility = 'private', [switch]$SourceOnly, [switch]$Release)
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
@@ -15,6 +15,7 @@ function Probe([string]$Program, [string[]]$Arguments) {
     finally { $ErrorActionPreference = $old }
 }
 try {
+    if ($Release -and $SourceOnly) { throw 'Choose either -Release or -SourceOnly.' }
     foreach ($tool in @('git','gh')) {
         if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) {
             $id = if ($tool -eq 'git') { 'Git.Git' } else { 'GitHub.cli' }
@@ -25,7 +26,7 @@ try {
     $version = $manifest.version; $tag = 'v' + $version
     $releaseDir = Join-Path $root 'dist\releases'
     $assets = @("Markpad-$version-Setup-x64.exe", "Markpad-$version-Portable-x64.zip", 'SHA256SUMS.txt', 'release-manifest.json')
-    if (-not $SourceOnly) {
+    if ($Release) {
         foreach ($name in $assets) {
             if (-not (Test-Path -LiteralPath (Join-Path $releaseDir $name))) { throw "Missing dist\releases\$name. Extract the complete release project ZIP or run Build-Releases.cmd first." }
         }
@@ -68,17 +69,14 @@ try {
         $first = ($file -split '/')[0]
         if ($first -notin $allow -or $file -match '(^|/)(node_modules|data|\.env)(/|$)' -or $file -match '\.(exe|dll|zip|log|lnk)$') { throw "Unexpected tracked file: $file. Review it before publishing; the script will not upload runtime binaries, notes, or logs as source." }
     }
-    $paths = @($allow | Where-Object { Test-Path -LiteralPath $_ })
-    Run 'git' (@('add','--all','--') + $paths)
-    $changes = Probe 'git' @('diff','--cached','--quiet')
-    if (-not $changes.Ok) { Run 'git' @('commit','-m',"Prepare Markpad $version Windows installer and portable release") }
+    if ($Release -and (Run 'git' @('status','--porcelain'))) { throw 'Commit the reviewed source before publishing release assets.' }
     if (-not (Probe 'git' @('rev-parse','--verify','HEAD')).Ok) { throw 'There is no source commit to publish.' }
     if (-not $existing.Ok) {
         Run 'gh' @('repo','create',$repository,('--' + $Visibility),'--description','Local WYSIWYG Markdown editor with calculator, worksheets, and recoverable drafts')
     }
     if (-not $remote.Ok) { Run 'git' @('remote','add','origin',$url) }
     Run 'git' @('push','-u','origin','main')
-    if (-not $SourceOnly) {
+    if ($Release) {
         if ((Probe 'gh' @('release','view',$tag,'--repo',$repository)).Ok) { throw "$tag already has a release. It was not overwritten. Increment the version and rebuild for a new release." }
         $head = (Run 'git' @('rev-parse','HEAD')).Trim()
         $existingTag = Probe 'git' @('rev-parse',"$tag^{}")
@@ -90,7 +88,7 @@ try {
         Run 'gh' (@('release','create',$tag,'--repo',$repository,'--verify-tag','--title',"Markpad $version",'--prerelease','--notes-file',$notes) + $files)
     }
     Write-Host "Published to https://github.com/$repository" -ForegroundColor Green
-    if (-not $SourceOnly) { Write-Host "Release: https://github.com/$repository/releases/tag/$tag" }
+    if ($Release) { Write-Host "Release: https://github.com/$repository/releases/tag/$tag" }
     Write-Host 'No force-push, visibility change, or published-release replacement was performed.'
 } catch {
     Write-Host $_.Exception.Message -ForegroundColor Red

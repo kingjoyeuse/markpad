@@ -62,6 +62,5 @@ for line in (folder/'SHA256SUMS.txt').read_text().splitlines():
         for block in iter(lambda: stream.read(1024*1024),b''):h.update(block)
     assert h.hexdigest()==digest,name
 checks.append('published artifact SHA-256 checksums and source-hash correspondence')
-result={'passed':checks,'coreTests':61,'windowsExecutionVerified':False}
+result={'passed':checks,'windowsExecutionVerified':False}
 print(json.dumps(result,indent=2))
-(root/'docs/release-artifact-checks-0.1.3.json').write_text(json.dumps(result,indent=2)+'\n')

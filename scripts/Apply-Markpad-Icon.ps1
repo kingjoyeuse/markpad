@@ -160,8 +160,8 @@ public static class MarkpadWindowsIconResource {
                 // VS_FIXEDFILEINFO. The rest of this VERSIONINFO is a standard
                 // English-US Unicode StringFileInfo plus Translation block.
                 uint[] fixedInfo = {
-                    0xFEEF04BD, 0x00010000, 0x00000001, 0x00020000,
-                    0x00000001, 0x00020000, 0x0000003F, 0x00000000,
+                    0xFEEF04BD, 0x00010000, 0x00000001, 0x00040000,
+                    0x00000001, 0x00040000, 0x0000003F, 0x00000000,
                     0x00040004, 0x00000001, 0x00000000, 0x00000000, 0x00000000
                 };
                 foreach (uint item in fixedInfo) writer.Write(item);
@@ -170,11 +170,11 @@ public static class MarkpadWindowsIconResource {
                     Block(writer, "040904B0", 0, 1, null, () => {
                         WriteString(writer, "CompanyName", "Markpad");
                         WriteString(writer, "FileDescription", "Markpad Markdown Editor");
-                        WriteString(writer, "FileVersion", "0.1.3.0");
+                        WriteString(writer, "FileVersion", "0.1.4.0");
                         WriteString(writer, "InternalName", "Markpad");
                         WriteString(writer, "OriginalFilename", "Markpad.exe");
                         WriteString(writer, "ProductName", "Markpad");
-                        WriteString(writer, "ProductVersion", "0.1.3.0");
+                        WriteString(writer, "ProductVersion", "0.1.4.0");
                     });
                 });
                 Block(writer, "VarFileInfo", 0, 1, null, () => {

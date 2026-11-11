@@ -1,31 +1,12 @@
-MARKPAD 0.1.3 - PROJECT AND RELEASES
+MARKPAD - DEVELOPMENT AND RELEASES
 
-Development project: C:\repos\markpad
-Extract project/update packages into that folder, NOT directly into bin.
-The development application runs from bin\Markpad.exe. Keep its Electron
-support files beside it. A root shortcut may point to that executable.
+Development project: C:\Repos\markpad
+Open Markpad.lnk to run the development app in bin\Markpad.exe.
+Keep the Electron support files together in bin.
 
-RELEASE DOWNLOADS
-The project/publishing kit includes these complete runtime packages:
-  dist\releases\Markpad-0.1.3-Setup-x64.exe
-  dist\releases\Markpad-0.1.3-Portable-x64.zip
-The standalone source ZIP does not include runtime binaries.
+Build-Releases.cmd creates the Windows installer and portable ZIP in
+dist\releases. Publish-Markpad.cmd pushes committed source to GitHub.
+After reviewing the build, use Publish-Markpad.cmd -Release to publish
+the installer and portable ZIP to kingjoyeuse/markpad.
 
-Setup installs separately under your local application folder, then offers
-optional PATH/Run registration and Windows .md default-app selection.
-Portable keeps settings and recoverable drafts in data beside its EXE.
-Neither release automatically imports drafts from a different installation.
-
-PUBLISH TO GITHUB
-Run Publish-Markpad.cmd from this folder. Git and GitHub CLI are required.
-The script uses your own GitHub login, requires account kingjoyeuse, creates
-kingjoyeuse/markpad privately by default, pushes source, and uploads the
-v0.1.3 prerelease. Public publishing is an explicit command-line choice:
-  Publish-Markpad.cmd -Visibility public
-It does not force-push or overwrite an existing release.
-The repository has NOT been created or uploaded by the chat session.
-
-See README.md and docs\RELEASING.md for build and publishing instructions.
-AGENTS.md contains Codex development guidance. Windows native execution,
-installer UI, PATH, default-app confirmation, and uninstall remain unverified.
-The EXE downloads are unsigned. Source license remains UNLICENSED.
+See README.md and docs\RELEASING.md for build requirements and instructions.

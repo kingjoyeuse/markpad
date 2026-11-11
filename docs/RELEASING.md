@@ -5,7 +5,7 @@
 The source repository contains `src`, `desktop`, `assets`, `vendor`, `scripts`,
 `installer`, `tests`, documentation, and build metadata. Generated `app`, `bin`,
 `dist`, recovery data, logs, and binaries are ignored. Keep the source project
-at `C:\repos\markpad` if desired; do not install a consumer release over it.
+at `C:\Repos\markpad`. Build and publish from that checkout. Install consumer releases in a separate folder.
 
 The portable ZIP puts `Markpad.exe` at its root with its required runtime files,
 `locales/en-US.pak`, `resources/app`, and licenses. `markpad-portable.json` selects
@@ -81,10 +81,11 @@ Git and GitHub CLI are required only for publishing. Install missing tools with
 Run `Publish-Markpad.cmd` in the project root. It uses your local authenticated
 GitHub CLI session; no credentials are requested in chat or embedded in files.
 It checks the owner login, creates a private `kingjoyeuse/markpad` repository when
-absent, commits the explicit source allowlist, pushes `main`, tags the version,
-and creates a prerelease with both binaries and checksums. Use `-Visibility public`
+absent, and pushes committed source on `main`. After reviewing the build, run
+`Publish-Markpad.cmd -Release` to tag the version and create a prerelease with
+both binaries and checksums. Use `-Visibility public`
 only as an explicit decision to publish publicly. No source license is chosen for
-you. `-SourceOnly` publishes without requiring binaries.
+you. The default source push does not require binaries.
 
 The script stops on a different origin, an unexpected tracked runtime/personal
 file, a non-main branch, conflicting remote history/tag, an existing release, or

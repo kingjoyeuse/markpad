@@ -47,5 +47,5 @@ for(const f of ['index.html','patch.js','runtime-enhancements.js'])await fs.copy
 await fs.mkdir('app/ui',{recursive:true});
 for(const f of ['source-position.js','recent-time.js','code-lexer.js'])await fs.copyFile('src/ui/'+f,'app/ui/'+f);
 try{await fs.copyFile('src/format-worker.js','app/format-worker.js');}catch(e){if(e.code!=='ENOENT')throw e;}
-await fs.writeFile('app/build-info.json',JSON.stringify({version:'0.1.3',release:'releases-0.1.3',builtAt:new Date().toISOString(),builder:'offline-source',bytes:(await fs.stat('app/main.js')).size},null,2));
+await fs.writeFile('app/build-info.json',JSON.stringify({version:'0.1.4',release:'releases-0.1.4',builtAt:new Date().toISOString(),builder:'offline-source',bytes:(await fs.stat('app/main.js')).size},null,2));
 console.log('Built complete Markpad app from current source using offline editor dependencies.');

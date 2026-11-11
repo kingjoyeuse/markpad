@@ -26,7 +26,7 @@ jobs:
         run: |
           $scripts = @('installer/setup.ps1','scripts/Publish-Markpad.ps1')
           foreach ($file in $scripts) {
-            $text = (Get-Content $file -Raw).Replace('@@VERSION@@','0.1.3').Replace('@@UNINSTALL@@','$false').Replace('@@PAYLOAD_SHA256@@','')
+            $text = (Get-Content $file -Raw).Replace('@@VERSION@@','0.1.4').Replace('@@UNINSTALL@@','$false').Replace('@@PAYLOAD_SHA256@@','')
             $tokens = $null; $errors = $null
             [void][Management.Automation.Language.Parser]::ParseInput($text,[ref]$tokens,[ref]$errors)
             if ($errors.Count) { throw ($errors | Out-String) }

@@ -356,7 +356,7 @@ export class SpreadsheetView {
     this.formula.oninput=()=>this.formulaInput();
   }
 
-  startEditing(initial) {
+  startEditing(initial, pointMode = true) {
     if (this.editing?.source === 'cell') return;
     if (!this.commitEditing()) return;
     this.ensureVisible(this.anchor);
@@ -366,7 +366,7 @@ export class SpreadsheetView {
     input.style.left = `${ROW_HEADER+this.colGeometry.offset(this.anchor.col)}px`;
     input.style.top = `${COL_HEADER+this.rowGeometry.offset(this.anchor.row)}px`;
     input.style.width=`${this.colGeometry.size(this.anchor.col)}px`;input.style.height=`${this.rowGeometry.size(this.anchor.row)}px`;
-    this.editing = { source: 'cell', input, sheetId: this.sheet.id, address: this.activeCell, original: this.sheet.cells[this.activeCell] || '',pointMode:initial!==undefined };
+    this.editing = { source: 'cell', input, sheetId: this.sheet.id, address: this.activeCell, original: this.sheet.cells[this.activeCell] || '', pointMode };
     input.addEventListener('input',()=>this.formulaInput());
     this.canvas.append(input);
     input.addEventListener('blur', () => { if (this.editing?.input === input) this.commitEditing(); });
@@ -400,6 +400,7 @@ export class SpreadsheetView {
     const text=ref.baseRow===undefined?address:cellAddress(ref.baseRow,ref.baseCol)+':'+address;
     input.setRangeText(text,ref.start,ref.end,'end');ref.end=ref.start+text.length;editing.reference=ref;
     if(editing.source==='cell')this.formula.value=input.value;
+    editing.hasPointed = true;
     this.rows=Math.max(this.rows,point.row+30);this.cols=Math.max(this.cols,point.col+4);this.resizeCanvas();this.ensureVisible(point);this.render();input.focus({preventScroll:true});return true;
   }
 
@@ -521,6 +522,7 @@ export class SpreadsheetView {
       if (editing.source === 'cell') editing.input.remove();
       if (value !== editing.original) this.applyCells([{ sheetId: editing.sheetId, address: editing.address, after: value }]);
       else this.render();
+      if (editing.hasPointed) this.ensureVisible(parseCellAddress(editing.address));
       return true;
     } catch (error) {
       this.editing = editing;
@@ -535,6 +537,7 @@ export class SpreadsheetView {
     const editing = this.editing; this.editing = null;
     if (editing.source === 'cell') editing.input.remove();
     else editing.input.value = editing.original;
+    if (editing.hasPointed) this.ensureVisible(parseCellAddress(editing.address));
     this.render();
   }
 
@@ -643,15 +646,35 @@ export class SpreadsheetView {
       if (this.editing && event.target === this.editing.input) {
         if(event.key==='F4'&&this.editing.input.value.startsWith('=')){stop();this.lockReference();return;}
         if(event.key==='F2'){stop();this.editing.pointMode=!this.editing.pointMode;this.editing.reference=null;this.render();return;}
-        if(!control&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)&&this.editing.pointMode!==false&&this.editing.input.value.startsWith('=')){
-          const ref=this.editing.reference,origin=ref||parseCellAddress(this.editing.address);
-          const point={row:origin.row+(event.key==='ArrowDown'?1:event.key==='ArrowUp'?-1:0),col:origin.col+(event.key==='ArrowRight'?1:event.key==='ArrowLeft'?-1:0)};
-          if(this.pointFormula(point,event.shiftKey)){stop();return;}
+        const edit = this.editing;
+        const origin = parseCellAddress(edit.address);
+        const formula = edit.input.value.startsWith('=');
+        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+          const rowStep = event.key === 'ArrowDown' ? 1 : event.key === 'ArrowUp' ? -1 : 0;
+          const colStep = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+          if (formula) {
+            const from = edit.reference || origin;
+            if (!control && edit.pointMode && this.pointFormula({ row: from.row + rowStep, col: from.col + colStep }, event.shiftKey)) stop();
+          } else {
+            stop();
+            if (this.commitEditing()) {
+              this.select(control ? this.boundary(rowStep, colStep) : { row: origin.row + rowStep, col: origin.col + colStep }, event.shiftKey);
+              this.focus();
+            }
+          }
+          return;
         }
         if (event.key === 'Escape') { stop(); this.cancelEditing(); this.focus(); }
         else if (event.key === 'Enter' || event.key === 'Tab') {
           stop();
-          if (this.commitEditing()) { this.select({ row: this.anchor.row + (event.key === 'Enter' ? (event.shiftKey ? -1 : 1) : 0), col: this.anchor.col + (event.key === 'Tab' ? (event.shiftKey ? -1 : 1) : 0) }); this.focus(); }
+          if (this.commitEditing()) {
+            const step = event.shiftKey ? -1 : 1;
+            this.select({
+              row: origin.row + (event.key === 'Enter' && !control ? step : 0),
+              col: origin.col + (event.key === 'Tab' && !formula ? step : 0),
+            });
+            this.focus();
+          }
         }
         return;
       }
@@ -673,7 +696,7 @@ export class SpreadsheetView {
         this.switchSheet(this.workbook.sheets[clamp(index + (event.key === 'PageUp' ? -1 : 1), 0, this.workbook.sheets.length - 1)].id); return;
       }
       if (event.key === 'Delete' || event.key === 'Backspace') { stop(); this.clearSelection(); return; }
-      if (event.key === 'F2') { stop(); this.startEditing(); return; }
+      if (event.key === 'F2') { stop(); this.startEditing(undefined, false); return; }
       if (event.key === 'Enter' || event.key === 'Tab') {
         stop(); this.select({ row: this.anchor.row + (event.key === 'Enter' ? (event.shiftKey ? -1 : 1) : 0), col: this.anchor.col + (event.key === 'Tab' ? (event.shiftKey ? -1 : 1) : 0) }); return;
       }

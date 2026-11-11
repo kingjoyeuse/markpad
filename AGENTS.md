@@ -68,7 +68,7 @@ When finishing a change, report what changed, the relevant checks actually run, 
 - `tests/`: meaningful regression coverage; never run destructive checks against real notes.
 - `docs/`: specification, plan, verification, and historical inputs.
 
-The supplied local Git repository has no remote. Runtime binaries, generated app assets, dependency caches, test screenshots, and test profiles are ignored. Commit source/document changes; regenerate the `bin/` runtime application for review.
+The main checkout at `C:\Repos\markpad` tracks `kingjoyeuse/markpad`. Runtime binaries, generated app assets, dependency caches, test screenshots, and test profiles are ignored. Commit source/document changes; regenerate the `bin/` runtime application for review.
 
 ## Complete-update invariants (0.1.1)
 
@@ -106,9 +106,9 @@ The supplied local Git repository has no remote. Runtime binaries, generated app
 ## Release packaging (0.1.3)
 
 - User requested GitHub under `kingjoyeuse/markpad` and separate minimal installer
-  and portable downloads. The chat connection did not create the repository;
-  `Publish-Markpad.cmd` performs the authorized creation/push/release using the
-  user's own GitHub CLI session. Default new repository visibility is private;
+  and portable downloads. Build and publish from the main checkout.
+  `Publish-Markpad.cmd` pushes committed source using GitHub CLI authentication.
+  Release uploads require the explicit `-Release` switch after user approval. Default new repository visibility is private;
   never silently change an existing repository's visibility or select a license.
 - `installer/bootstrap.c` is a tiny native x64 launcher. `installer/setup.ps1`
   provides a per-user Windows Forms installer using built-in Windows PowerShell.

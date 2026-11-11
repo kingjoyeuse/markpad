@@ -88,3 +88,20 @@ storage. Both EXEs contain current branding. Source-side publisher targets
 Core checks and archive/PE inspection completed; Windows execution and remote
 GitHub publication remain explicitly unverified. See RELEASING.md and
 RELEASE_VERIFICATION_0.1.3.md. The repository has not been claimed as created.
+
+## Worksheet navigation and release checkout — 0.1.4
+
+The main checkout tracks GitHub and builds both Windows distributions under
+`dist/releases`. The publisher pushes committed source by default and uploads
+release files only with `-Release`.
+
+On Windows, 61 Node tests passed, including byte comparisons of the generated
+app and both local runtime copies. Chrome passed 37 complete UI checks, 24 edge
+checks, and 156 sidebar layout checks. The complete UI suite also passed on an
+Edge rerun after the first run failed at the calculator focus assertion.
+The navigation checks cover value entry, formula bar pointing, reference
+highlighting, and the destination after Tab and Enter.
+
+Both 0.1.4 packages built from Electron 45.2.3 and passed the release verifier's
+archive, PE resource, embedded payload, and checksum checks. Native execution
+of the new installer and portable ZIP remains unverified.

@@ -13,5 +13,5 @@ await copyFile('src/format-worker.js','app/format-worker.js');
 await copyFile('vendor/editor-runtime.js','app/editor-runtime.js');
 await mkdir('app/ui',{recursive:true});
 for(const name of ['source-position.js','recent-time.js','code-lexer.js'])await copyFile(`src/ui/${name}`,`app/ui/${name}`);
-await writeFile('app/build-info.json',JSON.stringify({version:'0.1.3',release:'releases-0.1.3',builtAt:new Date().toISOString(),bytes:Object.values(result.metafile.outputs).reduce((n,o)=>n+o.bytes,0)},null,2));
+await writeFile('app/build-info.json',JSON.stringify({version:'0.1.4',release:'releases-0.1.4',builtAt:new Date().toISOString(),bytes:Object.values(result.metafile.outputs).reduce((n,o)=>n+o.bytes,0)},null,2));
 console.log('Built Markpad:', Object.values(result.metafile.outputs).reduce((n,o)=>n+o.bytes,0).toLocaleString(), 'bytes of bundled assets.');
