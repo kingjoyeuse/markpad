@@ -129,20 +129,43 @@
 #toolbar [data-format="htmlBlock"] { font-size: 11px; }
 .tiptap .code-block-shell { position: relative; margin: 1.7em 0 .8em; }
 .tiptap .code-block-shell pre { margin: 0; padding-right: 42px; }
-.tiptap .code-language,
+.tiptap .code-language-picker,
 .tiptap .code-copy { position: absolute; opacity: 0; pointer-events: none; z-index: 1; }
+.tiptap .code-language-picker {
+  left: 0; bottom: 100%; width: 9em; font-size: 12px; z-index: 2;
+}
 .tiptap .code-language {
-  left: 0; bottom: 100%; width: 9em; padding: 2px 5px;
-  background: var(--chrome); font-size: 12px;
+  display: block; width: 100%; padding: 2px 21px 2px 5px; background: var(--chrome);
+}
+.tiptap .code-language-toggle {
+  position: absolute; top: 1px; bottom: 1px; right: 1px; width: 20px;
+  color: var(--muted); line-height: 1; padding: 0;
+}
+.tiptap .code-language-menu {
+  position: absolute; top: 100%; left: 0; width: 100%; max-height: 170px;
+  overflow: auto; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 4px; box-shadow: var(--shadow); padding: 2px; user-select: none;
+}
+.tiptap .code-language-menu > :is(button,span) {
+  display: block; width: 100%; text-align: left; padding: 2px 5px;
+}
+.tiptap .code-language-menu > button[aria-selected="true"] {
+  background: var(--selected);
 }
 .tiptap .code-copy {
   top: 10px; right: 10px; width: 24px; height: 24px;
   border: 1px solid var(--line); background: var(--chrome); line-height: 1;
 }
-.tiptap .code-block-shell:hover :is(.code-language,.code-copy),
-.tiptap .code-block-shell:focus-within :is(.code-language,.code-copy) {
+.tiptap .code-block-shell:hover :is(.code-language-picker,.code-copy),
+.tiptap .code-block-shell:focus-within :is(.code-language-picker,.code-copy) {
   opacity: 1; pointer-events: auto;
 }
+.tiptap .inline-code-placeholder {
+  display: inline-block; width: .8em; height: 1em; vertical-align: -.12em;
+  background: var(--chrome); border: 1px solid var(--accent); border-radius: 3px;
+  pointer-events: none;
+}
+.tiptap .is-editor-empty:has(> .inline-code-placeholder)::before { display: none; }
 .tiptap .html-source-block { margin: .8em 0; }
 .tiptap .html-source-block > pre { margin: 0; }
 .tiptap .html-source-block > button,
@@ -166,7 +189,7 @@
   font: 13px/1.6 Consolas, monospace; border: 1px solid var(--line);
   border-radius: 4px; white-space: pre;
 }
-.tiptap .html-source-editor textarea { display: block; position: relative; }
+.tiptap .html-source-editor textarea { display: block; position: relative; user-select: text; }
 .tiptap .html-source-editor > pre {
   display: none; position: absolute; inset: 0; overflow: hidden; pointer-events: none;
 }

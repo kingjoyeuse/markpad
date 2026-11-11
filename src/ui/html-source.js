@@ -83,6 +83,7 @@ function htmlNodeView({node, editor, getPos}, inline) {
 
   function display() {
     editing = false;
+    dom.draggable = dom.classList.contains('ProseMirror-selectednode');
     const preview = inline ? null : safePreview(node.attrs.source);
     const code = document.createElement('code');
     highlight(code,node.attrs.source);
@@ -99,10 +100,15 @@ function htmlNodeView({node, editor, getPos}, inline) {
 
   edit.addEventListener('click', () => {
     editing = true;
+    dom.draggable = false;
     input.value = node.attrs.source;
     dom.replaceChildren(sourceEditor, done);
     paintSource();
     input.focus();
+  });
+  input.addEventListener('mousedown', event => event.stopPropagation());
+  dom.addEventListener('dragstart', event => {
+    if (editing) event.preventDefault();
   });
   input.addEventListener('input', () => {
     paintSource();
@@ -126,6 +132,14 @@ function htmlNodeView({node, editor, getPos}, inline) {
   display();
   return {
     dom,
+    selectNode() {
+      dom.classList.add('ProseMirror-selectednode');
+      dom.draggable = !editing;
+    },
+    deselectNode() {
+      dom.classList.remove('ProseMirror-selectednode');
+      dom.draggable = false;
+    },
     stopEvent: event => event.target !== dom,
     ignoreMutation: () => true,
     update(next) {

@@ -150,3 +150,15 @@ Windows test papercut: Electron refused to launch an isolated runtime in the
 test artifacts directory because of its AppContainer ACL. The first launch
 showed a breakpoint dialog. Native keyboard and menu interaction remain
 unverified. Use the mock host and browser fixtures when that ACL blocks launch.
+
+## Table and code editing controls
+
+The table button uses a three-by-three grid. The code language picker shows
+all supported languages and filters by partial name. Dragging in an HTML
+source field selects its text. Inline Code shows a blank slot at the caret
+that becomes Markdown inline code when the user types.
+
+On Windows, 61 Node tests and 62 Chrome edge checks passed, including language
+filtering and selection, an HTML mouse drag, and the inline code slot. The
+complete UI and sidebar suites passed 37 and 156 checks. Both local runtime
+copies matched the generated app. Native Windows interaction was not tested.

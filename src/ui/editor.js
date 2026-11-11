@@ -328,6 +328,7 @@ export class DocumentEditor {
     else if(kind==='paragraph')c.setParagraph();else if(/^h[1-6]$/.test(kind))c.toggleHeading({level:Number(kind.slice(1))});
     else if(kind==='link'){if(!value)c.unsetLink();else c.extendMarkRange('link').setLink({href:value});}
     else return;c.run();
+    if(kind==='code')this.onSelection?.();
   }
   formatRaw(kind,value){
     const sel=this.selection();const text=sel.text;let replacement=text;
