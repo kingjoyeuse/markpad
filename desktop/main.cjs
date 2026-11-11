@@ -121,6 +121,7 @@ function scheduleMenu() {
 
 function buildMenu() {
   const send = name => () => command(activeRecord(), name);
+  const active = activeRecord();
   const recentItems = store.list().slice(0, 15).map(entry => ({
     label: `${entry.dirty || !entry.path ? '● ' : ''}${entry.name.replace(/&/g, '&&')}${entry.path ? `  —  ${path.dirname(entry.path).replace(/&/g, '&&')}` : '  (unsaved draft)'}`,
     click: () => guarded(() => reopen(entry.id)),
@@ -128,7 +129,8 @@ function buildMenu() {
   const templates = [
     {
       label: '&File', submenu: [
-        { label: '&New Window', accelerator: 'CmdOrCtrl+N', click: () => guarded(newDocument) },
+        { label: '&New Markpad', accelerator: 'CmdOrCtrl+N', click: send('new-document') },
+        { label: 'New Markpad &Window', accelerator: 'CmdOrCtrl+Shift+N', click: () => guarded(newDocument) },
         { label: '&Open…', accelerator: 'CmdOrCtrl+O', click: send('open') },
         { label: 'Recent Files && Drafts', submenu: [
           ...recentItems,
@@ -171,10 +173,8 @@ function buildMenu() {
         { label: 'Formatted / Raw', accelerator: 'Ctrl+Tab', click: send('toggle-mode') },
         { label: 'Word Wrap', type: 'checkbox', checked: activeRecord()?.wordWrap ?? true, click: send('word-wrap-toggle') },
         { type: 'separator' },
-        { label: 'Show Calculator', accelerator: 'Alt+Shift+Up', click: send('calculator-show') },
-        { label: 'Hide Calculator', accelerator: 'Alt+Shift+Down', click: send('calculator-hide') },
-        { label: 'Show Spreadsheet', accelerator: 'Ctrl+Alt+Up', click: send('spreadsheet-show') },
-        { label: 'Hide Spreadsheet', accelerator: 'Ctrl+Alt+Down', click: send('spreadsheet-hide') },
+        { label: active?.calcShown ? 'Hide Calculator' : 'Show Calculator', accelerator: active?.calcShown ? 'Alt+Shift+Down' : 'Alt+Shift+Up', click: send('calculator-toggle') },
+        { label: active?.sheetShown ? 'Hide Spreadsheet' : 'Show Spreadsheet', accelerator: active?.sheetShown ? 'Ctrl+Alt+Down' : 'Ctrl+Alt+Up', click: send('spreadsheet-toggle') },
         { type: 'separator' },
         { label: 'Appearance', submenu: ['system', 'light', 'dark'].map(theme => ({
           label: theme === 'system' ? 'System (default)' : theme[0].toUpperCase() + theme.slice(1),
@@ -272,7 +272,7 @@ async function createWindow(entry, recovered = false) {
   window.on('close', event => {
     if (record.closeAllowed) return;
     event.preventDefault();
-    if (record.closePending) return;
+    if (record.closePending || record.switching) return;
     record.closePending = true;
     record.closeGeneration = record.checkpointGeneration;
     command(record, 'prepare-close');
@@ -283,7 +283,7 @@ async function createWindow(entry, recovered = false) {
     windows.delete(contentsId);
     scheduleMenu();
   });
-  window.on('focus', scheduleMenu);
+  window.on('focus', buildMenu);
   window.webContents.on('render-process-gone', (_event, details) => {
     if (record.closeAllowed || window.isDestroyed()) return;
     guarded(async () => {
@@ -334,6 +334,35 @@ function armCloseTimeout(record) {
 async function newDocument() {
   const entry = await store.create();
   return createWindow(entry);
+}
+
+async function replaceWithNewDocument(record) {
+  if (record.closePending || record.switching) throw new Error('Wait for the current document to finish closing.');
+  record.switching = true;
+  const previous = { ...record };
+  let entry;
+  try {
+    await record.saveQueue.catch(() => {});
+    entry = await store.create();
+    await store.close(previous.id);
+    Object.assign(record, {
+      id: entry.id, identity: {}, recovered: false, wordWrap: true, calcShown: false, sheetShown: false,
+      checkpointGeneration: 0, checkpointRequested: 0, saveQueue: Promise.resolve(),
+    });
+    title(record, entry);
+    await record.window.loadFile(APP_HTML);
+    buildMenu();
+  } catch (error) {
+    if (entry && record.id === entry.id) {
+      Object.assign(record, previous);
+      record.recovered = true;
+      await record.window.loadFile(APP_HTML);
+    }
+    if (entry) await store.forget(entry.id);
+    throw error;
+  } finally {
+    record.switching = false;
+  }
 }
 
 async function canonicalPath(file) {
@@ -549,7 +578,14 @@ function registerIPC() {
     return next;
   });
   handle('open', chooseOpen);
+  handle('new-document', replaceWithNewDocument);
   handle('new-window', () => newDocument());
+  handle('panes', (record, value) => {
+    if (typeof value?.calculator !== 'boolean' || typeof value?.spreadsheet !== 'boolean') throw new Error('Invalid pane state');
+    record.calcShown = value.calculator;
+    record.sheetShown = value.spreadsheet;
+    if (record === activeRecord()) buildMenu();
+  });
   handle('recents', () => store.list());
   handle('open-recent', (_record, id) => reopen(id));
   handle('remove-recent', async (record, id) => {

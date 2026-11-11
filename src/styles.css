@@ -121,6 +121,28 @@
 /* Editable contentDOM is transparent only in the portable-runtime fallback.
    The visually colored layer is noninteractive and never enters the document. */
 .tiptap pre.mp-codeblock { position: relative; }
+#toolbar button svg {
+  width: 18px; height: 18px; vertical-align: middle;
+  stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+#toolbar button svg path { fill: none; }
+#toolbar [data-format="htmlBlock"] { font-size: 11px; }
+.tiptap .code-block-shell { position: relative; margin: 1.7em 0 .8em; }
+.tiptap .code-block-shell pre { margin: 0; padding-right: 42px; }
+.tiptap .code-language,
+.tiptap .code-copy { position: absolute; opacity: 0; pointer-events: none; z-index: 1; }
+.tiptap .code-language {
+  left: 0; bottom: 100%; width: 9em; padding: 2px 5px;
+  background: var(--chrome); font-size: 12px;
+}
+.tiptap .code-copy {
+  top: 10px; right: 10px; width: 24px; height: 24px;
+  border: 1px solid var(--line); background: var(--chrome); line-height: 1;
+}
+.tiptap .code-block-shell:hover :is(.code-language,.code-copy),
+.tiptap .code-block-shell:focus-within :is(.code-language,.code-copy) {
+  opacity: 1; pointer-events: auto;
+}
 .tiptap .html-source-block { margin: .8em 0; }
 .tiptap .html-source-block > pre { margin: 0; }
 .tiptap .html-source-block > button,
@@ -134,6 +156,27 @@
   font: 13px/1.6 Consolas, monospace;
 }
 .tiptap .html-source-inline textarea { width: min(36em, 80%); vertical-align: middle; }
+.tiptap .html-source-editor { position: relative; display: block; }
+.tiptap .html-source-inline .html-source-editor {
+  display: inline-block; width: min(36em, 80%); vertical-align: middle;
+}
+.tiptap .html-source-editor textarea,
+.tiptap .html-source-editor > pre {
+  width: 100%; margin: 0; padding: 8px; tab-size: 4;
+  font: 13px/1.6 Consolas, monospace; border: 1px solid var(--line);
+  border-radius: 4px; white-space: pre;
+}
+.tiptap .html-source-editor textarea { display: block; position: relative; }
+.tiptap .html-source-editor > pre {
+  display: none; position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.tiptap .html-source-editor.highlighted > pre { display: block; }
+.tiptap .html-source-editor.highlighted textarea {
+  background: transparent; color: transparent; caret-color: var(--text);
+}
+.tiptap .html-source-editor.highlighted textarea::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
 .tiptap pre.mp-codeblock .mp-code-input {
   display: block; position: relative; z-index: 1; min-height: 1.6em;
   white-space: pre; caret-color: var(--accent);

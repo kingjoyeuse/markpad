@@ -14,7 +14,7 @@ function notice(message,duration=4500){$('#toast').textContent=message;$('#toast
 const native=Boolean(window.markpad);
 const platform=window.markpad||browserPlatform(notice);
 let editor,sheet,session,workbook=createWorkbook(),savedSource='',dirty=false,checkpointTimer,checkpointMaxTimer,statusTimer,closing=false,saving=false;
-let calcShown=false,sheetShown=false,theme='system',calcValue=0,calcValid=true,calcAfterEquals=false;
+let calcShown=false,sheetShown=false,theme='system',calcValue=0,calcValid=true,calcAfterEquals=false,replacing=false;
 let checkpointQueue=Promise.resolve(),lastFocus='document',loaded=false,rawChangedSinceSync=false;
 let savedBytes=0,sizeTimer,formatWorker=null,formatGeneration=0,formatTimer,formatPending=false,lastEditAt=0,composing=false;
 const systemTheme=window.matchMedia('(prefers-color-scheme: dark)');
@@ -24,7 +24,17 @@ systemTheme.addEventListener('change',()=>{if(theme==='system')applyTheme('syste
 async function chooseTheme(value){await platform.setTheme(value);applyTheme(value);}
 function getSource(){return editor.mode==='raw'?editor.getRaw():serializeDocument(editor.getBody(),workbook);}
 function refreshTitle(){if(!session)return;$('#document-name').textContent=session.name||'Untitled';$('#web-title').textContent=(dirty?'● ':'')+(session.name||'Untitled');platform.setTitle({name:session.name,dirty}).catch(error=>notice(error.message));}
-function status(){clearTimeout(statusTimer);statusTimer=setTimeout(()=>{if(!editor)return;for(const button of document.querySelectorAll('[data-format]'))button.setAttribute('aria-pressed',String(editor.active(button.dataset.format)));$('#block-style').value=editor.activeBlock();},90);}
+function status(){clearTimeout(statusTimer);statusTimer=setTimeout(()=>{
+  if(!editor)return;
+  const hasLink=editor.linkRanges().length>0,linkLabel=hasLink?'Edit link':'Insert link';
+  $('[data-format="link"]').setAttribute('aria-label',linkLabel);
+  $('[data-format="link"]').title=linkLabel+' (Ctrl+K)';
+  $('[data-format="breakLink"]').disabled=!hasLink;
+  for(const button of document.querySelectorAll('[data-format]')){
+    if(!['link','breakLink','htmlBlock'].includes(button.dataset.format))button.setAttribute('aria-pressed',String(editor.active(button.dataset.format)));
+  }
+  $('#block-style').value=editor.activeBlock();
+},90);}
 function sizeStatus(){clearTimeout(sizeTimer);sizeTimer=setTimeout(()=>{
   if(!editor)return;
   try{const source=getSource(),bytes=utf8Bytes(source),changed=savedSource===null||source!==savedSource;
@@ -162,7 +172,7 @@ async function checkpoint(){
   return operation.then(result=>{$('#document-state').textContent=dirty?'Draft preserved':session.path?'Saved':'New note';return result;});
 }
 async function save(saveAs=false){
-  if(saving)return;saving=true;
+  if(saving||replacing)return;saving=true;
   try{
     sheet.commitEditing();const markdown=getSource();const result=await platform.save({markdown,saveAs});
     if(result?.canceled)return;if(!result?.saved)throw new Error('The save operation did not complete.');
@@ -196,6 +206,7 @@ function setPane(which,shown){
   $('#sidebar').hidden=!(calcShown||sheetShown);$('#sidebar-resizer').hidden=!(calcShown||sheetShown);
   $('#workspace').dataset.panels=calcShown?(sheetShown?'both':'calculator'):(sheetShown?'spreadsheet':'none');
   $('#calc-tab').setAttribute('aria-expanded',String(calcShown));$('#sheet-tab').setAttribute('aria-expanded',String(sheetShown));
+  platform.setPanes?.({calculator:calcShown,spreadsheet:sheetShown}).catch(error=>notice(error.message));
   requestAnimationFrame(()=>{updateSidebarPlacement();if(sheetShown)sheet.refresh();});return true;
 }
 function updateCalculator(expression,{equal=false}={}){
@@ -250,11 +261,18 @@ function modal(title,buildBody,actions=[]){
 function confirmAction(title,message,action){modal(title,body=>{body.textContent=message;},[{label:'Cancel',run:dialog=>dialog.close()},{label:'Forget draft',primary:true,run:async dialog=>{try{await action();dialog.close();showRecents();}catch(error){notice(error.message);}}}]);}
 function linkDialog(){
   const selection=editor.selection();
-  const current=editor.mode==='formatted'?editor.editor.getAttributes('link').href||'':'';
+  const range=editor.linkRanges()[0];
+  if(range&&selection.from===selection.to){
+    selection.from=range.from;
+    selection.to=range.to;
+    selection.text=editor.editor.state.doc.textBetween(range.from,range.to);
+  }
+  const current=range?.mark.attrs.href||'';
   let addressInput,textInput;
-  modal('Insert link',body=>{
+  modal(range?'Edit link':'Insert link',body=>{
     const textLabel=document.createElement('label');textLabel.textContent='Link text';
     textInput=document.createElement('input');textInput.value=selection.text;textInput.placeholder='Text to display';textInput.setAttribute('aria-label','Link text');textLabel.append(textInput);
+    textInput.readOnly=selection.text.includes('\n');
     const addressLabel=document.createElement('label');addressLabel.textContent='Link address';
     addressInput=document.createElement('input');addressInput.value=current;addressInput.placeholder='https://example.com';addressInput.type='url';addressInput.setAttribute('aria-label','Link address');addressLabel.append(addressInput);
     body.append(textLabel,addressLabel);const note=document.createElement('p');note.className='help-note';note.textContent='Use https://, http://, mailto:, or a document anchor (#heading). Blank link text uses the address.';body.append(note);
@@ -262,8 +280,7 @@ function linkDialog(){
     const value=addressInput.value.trim();
     if(value&&!/^(https?:\/\/|mailto:|#)/i.test(value)){notice('Use a web address, mailto: link, or #anchor.');addressInput.focus();return;}
     const label=textInput.value||value;dialog.close();
-    if(value&&label!==selection.text){editor.selectRange(selection.from,selection.to);editor.insertText(label);const end=editor.selection().to;editor.selectRange(end-label.length,end);}
-    editor.format('link',value);
+    editor.applyLink(selection,value,textInput.readOnly?selection.text:label);
   }}]);(selection.text?addressInput:textInput).focus();
 }
 async function showRecents(){
@@ -298,7 +315,7 @@ async function showRecents(){
   });
 }
 function help(){modal('Markpad · tables-links-logo-2026-11-09',body=>{
-  const headings=[['Editor',[['Ctrl+Tab','Switch formatted / raw'],['Ctrl+N / O','New window / Open file'],['Ctrl+S / Ctrl+Shift+S','Save / Save As'],['Ctrl+B / I / U / K','Bold / Italic / Underline / Link'],['Ctrl+E / Ctrl+Shift+C','Inline code / Code block'],['Ctrl+Shift+7 / 8 / 9','Numbered list / Bulleted list / Quote'],['Ctrl+Alt+1 / 2 / 3','Heading 1 / 2 / 3'],['Ctrl+Shift+X','Strikethrough'],['Ctrl+mouse wheel','Zoom in / out'],['Ctrl+F / H','Find / Replace']]],['Calculator · Alt+Shift',[['Alt+Shift+Right','Send selected number or equation to calculator'],['Alt+Shift+Left / keypad Enter','Insert calculator result in document'],['Alt+Shift+Up / Down','Show / Hide calculator']]],['Spreadsheet · Alt+Ctrl',[['Alt+Ctrl+Right','Send selection to active cell'],['Alt+Ctrl+Left / keypad Enter','Insert selected cells as linked text / a linked table'],['Alt+Ctrl+Up / Down','Show / Hide spreadsheet'],['F2 / Escape','Edit cell / Cancel edit'],['Ctrl+D / R','Fill down / right'],['Ctrl+PageUp / PageDown','Switch worksheet'],['Ctrl / Shift + header click','Toggle individual / select consecutive rows or columns'],['Double-click a header edge','Auto-fit that row/column or the selected headers'],['Drag left of A / above 1','Set all column widths / all row heights']]],['Inline calculation',[['Alt+Ctrl+Shift+Right','Append “ = result” after selected equation']]]];
+  const headings=[['Editor',[['Ctrl+Tab','Switch formatted / raw'],['Ctrl+N','New Markpad in this window'],['Ctrl+Shift+N','New Markpad Window'],['Ctrl+O','Open file'],['Ctrl+S / Ctrl+Shift+S','Save / Save As'],['Ctrl+B / I / U / K','Bold / Italic / Underline / Link'],['Ctrl+E / Ctrl+Shift+C','Inline code / Code block'],['Ctrl+Shift+7 / 8 / 9','Numbered list / Bulleted list / Quote'],['Ctrl+Alt+1 / 2 / 3','Heading 1 / 2 / 3'],['Ctrl+Shift+X','Strikethrough'],['Ctrl+mouse wheel','Zoom in / out'],['Ctrl+F / H','Find / Replace']]],['Calculator · Alt+Shift',[['Alt+Shift+Right','Send selected number or equation to calculator'],['Alt+Shift+Left / keypad Enter','Insert calculator result in document'],['Alt+Shift+Up / Down','Show / Hide calculator']]],['Spreadsheet · Alt+Ctrl',[['Alt+Ctrl+Right','Send selection to active cell'],['Alt+Ctrl+Left / keypad Enter','Insert selected cells as linked text / a linked table'],['Alt+Ctrl+Up / Down','Show / Hide spreadsheet'],['F2 / Escape','Edit cell / Cancel edit'],['Ctrl+D / R','Fill down / right'],['Ctrl+PageUp / PageDown','Switch worksheet'],['Ctrl / Shift + header click','Toggle individual / select consecutive rows or columns'],['Double-click a header edge','Auto-fit that row/column or the selected headers'],['Drag left of A / above 1','Set all column widths / all row heights']]],['Inline calculation',[['Alt+Ctrl+Shift+Right','Append “ = result” after selected equation']]]];
   for(const [title,rows] of headings){const h=document.createElement('h3');h.textContent=title;const table=document.createElement('table');for(const [key,action] of rows){const row=table.insertRow();const cell=row.insertCell();const k=document.createElement('kbd');k.textContent=key;cell.append(k);row.insertCell().textContent=action;}body.append(h,table);}
   const p=document.createElement('p');p.className='help-note';p.textContent='Use the Alt modifier with every calculator or spreadsheet transfer. The Enter shortcuts use the numeric keypad. Calculator state is temporary. Worksheets are saved as readable Markdown tables, with hidden formula metadata. Percent is arithmetic: 10% = 0.1. Currency symbols are ignored; amounts are not converted.';body.append(p);
 });}
@@ -311,10 +328,20 @@ function refreshFindIfNeeded(){const next=editor.findMatches($('#find-input').va
 function replaceOne(){if(matchIndex<0)findNext();if(matchIndex>=0&&matches[matchIndex]){editor.selectRange(matches[matchIndex].from,matches[matchIndex].to);editor.insertText($('#replace-input').value);refreshFind();findNext();}}
 function focusIsSheet(){return lastFocus==='spreadsheet';}
 async function command(action){
+  if(action==='new-document'){
+    if(replacing||closing||saving||!sheet.commitEditing())return;
+    replacing=true;
+    $('#app').inert=true;
+    try{await checkpoint();await platform.newDocument();}
+    catch(error){notice('Could not start a new Markpad: '+error.message,9000);}
+    finally{$('#app').inert=false;replacing=false;editor.focus();}
+    return;
+  }
+  if(replacing&&action!=='prepare-close')return;
   if(action==='save')return save();if(action==='save-as')return save(true);if(action==='toggle-mode')return toggleMode();
   if(action==='open'){sheet.commitEditing();await checkpoint();return platform.open();}
-  if(action==='calculator-show')return setPane('calculator',true);if(action==='calculator-hide')return setPane('calculator',false);
-  if(action==='spreadsheet-show')return setPane('spreadsheet',true);if(action==='spreadsheet-hide')return setPane('spreadsheet',false);
+  if(action==='calculator-toggle')return setPane('calculator',!calcShown);
+  if(action==='spreadsheet-toggle')return setPane('spreadsheet',!sheetShown);
   if(action==='send-to-calculator')return sendToCalculator();if(action==='insert-calculator')return insertCalculator();if(action==='evaluate-inline')return evaluateInline();
   if(action==='send-to-spreadsheet')return sendToSpreadsheet();if(action==='insert-spreadsheet')return insertSpreadsheet();
   if(action==='recent')return showRecents();if(action==='help')return help();if(action==='find')return findOpen();if(action==='replace')return findOpen(true);
@@ -333,7 +360,14 @@ async function command(action){
 
 function wireUI(){
   $('#mode-toggle').onclick=toggleMode;$('#theme-button').onclick=themeMenu;
-  for(const button of document.querySelectorAll('[data-format]')){button.onmousedown=event=>event.preventDefault();button.onclick=()=>button.dataset.format==='link'?linkDialog():editor.format(button.dataset.format);}
+  for(const button of document.querySelectorAll('[data-format]')){
+    button.onmousedown=event=>event.preventDefault();
+    button.onclick=()=>{
+      if(button.dataset.format==='link')linkDialog();
+      else if(button.dataset.format==='breakLink'){editor.selection();editor.breakLinks();}
+      else editor.format(button.dataset.format);
+    };
+  }
   $('#block-style').onchange=event=>editor.format(event.target.value);
   $('#calc-tab').onclick=()=>setPane('calculator',!calcShown);$('#sheet-tab').onclick=()=>setPane('spreadsheet',!sheetShown);
   $('#calc-insert').onclick=insertCalculator;
@@ -357,6 +391,7 @@ function wireUI(){
   });
   document.addEventListener('focusin',event=>{if(event.target.closest('#sheet-content'))lastFocus='spreadsheet';else if(event.target.closest('#document-pane'))lastFocus='document';else if(event.target.closest('#calculator'))lastFocus='calculator';});
   document.addEventListener('keydown',event=>{
+    if(replacing){event.preventDefault();return;}
     if(event.isComposing||event.keyCode===229||$('#modal').open)return;
     const key=event.key,code=event.code,ctrl=event.ctrlKey||event.metaKey;
     if(event.altKey&&ctrl&&event.shiftKey&&key==='ArrowRight'){event.preventDefault();evaluateInline();return;}
@@ -366,7 +401,7 @@ function wireUI(){
     if(ctrl&&key==='Tab'){event.preventDefault();toggleMode();return;}
     if(ctrl&&key.toLowerCase()==='k'&&lastFocus==='document'){event.preventDefault();linkDialog();return;}
     if(ctrl&&['b','i'].includes(key.toLowerCase())&&editor.mode==='raw'&&lastFocus==='document'){event.preventDefault();editor.format(key.toLowerCase()==='b'?'bold':'italic');return;}
-    if(!native&&ctrl){const action={n:()=>platform.newWindow(),o:()=>command('open'),s:()=>save(event.shiftKey),f:()=>findOpen(),h:()=>findOpen(true)}[key.toLowerCase()];if(action){event.preventDefault();action();return;}}
+    if(!native&&ctrl){const action={n:()=>event.shiftKey?platform.newWindow():command('new-document'),o:()=>command('open'),s:()=>save(event.shiftKey),f:()=>findOpen(),h:()=>findOpen(true)}[key.toLowerCase()];if(action){event.preventDefault();action();return;}}
     if(!native&&key==='F1'){event.preventDefault();help();}
     if(key==='Escape'&&!$('#find-bar').hidden){$('#find-bar').hidden=true;editor.focus();}
   },true);
@@ -376,9 +411,9 @@ function wireUI(){
   $('#sidebar-resizer').onkeydown=event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();const width=$('#sidebar').offsetWidth+(event.key==='ArrowLeft'?20:-20);document.documentElement.style.setProperty('--sidebar-width',Math.max(250,Math.min(innerWidth-260,width))+'px');sheet.refresh();}};
   for(const button of document.querySelectorAll('[data-action]'))button.onclick=()=>command(button.dataset.action);
   if(!native){$('#web-menu').hidden=false;for(const button of document.querySelectorAll('[data-menu]'))button.onclick=()=>{const rect=button.getBoundingClientRect();let items;
-    if(button.dataset.menu==='file')items=[{label:'New window',shortcut:'Ctrl+N',action:()=>platform.newWindow()},{label:'Open…',shortcut:'Ctrl+O',action:()=>command('open')},{label:'Save',shortcut:'Ctrl+S',action:()=>save()},{label:'Save As…',shortcut:'Ctrl+Shift+S',action:()=>save(true)},{separator:true},{label:'Recent files & drafts',action:showRecents}];
+    if(button.dataset.menu==='file')items=[{label:'New Markpad',shortcut:'Ctrl+N',action:()=>command('new-document')},{label:'New Markpad Window',shortcut:'Ctrl+Shift+N',action:()=>platform.newWindow()},{label:'Open…',shortcut:'Ctrl+O',action:()=>command('open')},{label:'Save',shortcut:'Ctrl+S',action:()=>save()},{label:'Save As…',shortcut:'Ctrl+Shift+S',action:()=>save(true)},{separator:true},{label:'Recent files & drafts',action:showRecents}];
     else if(button.dataset.menu==='edit')items=[{label:'Undo',shortcut:'Ctrl+Z',action:()=>command('undo')},{label:'Redo',shortcut:'Ctrl+Y',action:()=>command('redo')},{separator:true},{label:'Find',shortcut:'Ctrl+F',action:()=>findOpen()},{label:'Replace',shortcut:'Ctrl+H',action:()=>findOpen(true)}];
-    else items=[{label:'Formatted / Raw',shortcut:'Ctrl+Tab',action:toggleMode},{label:'Word Wrap',action:()=>$('#word-wrap-button').click()},{label:'Calculator',shortcut:'Alt+Shift+↑',action:()=>setPane('calculator',!calcShown)},{label:'Spreadsheet',shortcut:'Alt+Ctrl+↑',action:()=>setPane('spreadsheet',!sheetShown)},{separator:true},...['system','light','dark'].map(value=>({label:(theme===value?'✓ ':'')+value[0].toUpperCase()+value.slice(1),action:()=>chooseTheme(value)}))];openPopup(items,rect.left,rect.bottom);};$('#browser-open').onchange=async event=>{if(event.target.files[0]){sheet.commitEditing();await checkpoint();platform.importFile(event.target.files[0]);}};
+    else items=[{label:'Formatted / Raw',shortcut:'Ctrl+Tab',action:toggleMode},{label:'Word Wrap',action:()=>$('#word-wrap-button').click()},{label:calcShown?'Hide Calculator':'Show Calculator',shortcut:calcShown?'Alt+Shift+↓':'Alt+Shift+↑',action:()=>setPane('calculator',!calcShown)},{label:sheetShown?'Hide Spreadsheet':'Show Spreadsheet',shortcut:sheetShown?'Alt+Ctrl+↓':'Alt+Ctrl+↑',action:()=>setPane('spreadsheet',!sheetShown)},{separator:true},...['system','light','dark'].map(value=>({label:(theme===value?'✓ ':'')+value[0].toUpperCase()+value.slice(1),action:()=>chooseTheme(value)}))];openPopup(items,rect.left,rect.bottom);};$('#browser-open').onchange=async event=>{if(event.target.files[0]){sheet.commitEditing();await checkpoint();platform.importFile(event.target.files[0]);}};
     window.addEventListener('pagehide',()=>{try{sheet.commitEditing();platform.checkpoint({markdown:getSource(),dirty,name:session.name,mode:editor.mode});}catch{}});
   }
 }
@@ -387,7 +422,14 @@ async function start(){
   session=await platform.bootstrap();applyTheme(session.theme);const parsed=parseDocument(session.markdown||'');workbook=parsed.workbook;savedSource=session.dirty?null:session.markdown||'';dirty=Boolean(session.dirty);
   savedBytes=Number.isFinite(session.savedBytes)?session.savedBytes:session.path&&!session.dirty?utf8Bytes(session.markdown||''):0;
   const requiresRaw=Boolean(parsed.warnings.length)||needsRawPreservation(parsed.body),progressive=!requiresRaw&&parsed.body.length>65536;
-  editor=new DocumentEditor({onChange:()=>{if(editor?.mode==='raw')rawChangedSinceSync=true;editChanged();},onSelection:status});editor.setBody(requiresRaw||progressive?'':parsed.body);
+  editor=new DocumentEditor({
+    onChange:()=>{if(editor?.mode==='raw')rawChangedSinceSync=true;editChanged();},onSelection:status,
+    copyText:async text=>{
+      try{await(platform.writeClipboard?platform.writeClipboard(text):navigator.clipboard.writeText(text));notice('Code copied.');}
+      catch(error){notice('Could not copy code: '+error.message);}
+    },
+  });
+  editor.setBody(requiresRaw||progressive?'':parsed.body);
   if(progressive)beginFormatting(session.markdown||'');
   sheet=new SpreadsheetView({element:$('#sheet-content'),workbook,onNotice:notice,onInsert:insertSpreadsheet,onChange:worksheetChanged});
   workbook=sheet.workbook; // share the validated workbook so link metadata and cell edits remain atomic

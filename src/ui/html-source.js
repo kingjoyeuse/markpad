@@ -1,3 +1,5 @@
+import {tokenizeCode} from './code-lexer.js';
+
 const previewTags = new Set([
   'details', 'summary', 'div', 'p', 'span', 'strong', 'b', 'em', 'i', 'u',
   's', 'del', 'sub', 'sup', 'mark', 'code', 'pre', 'br', 'hr', 'ul', 'ol',
@@ -46,16 +48,44 @@ function htmlNodeView({node, editor, getPos}, inline) {
   const input = document.createElement('textarea');
   input.setAttribute('aria-label', 'HTML source');
   input.spellcheck = false;
+  input.wrap = 'off';
+  const sourceEditor = document.createElement('span');
+  sourceEditor.className = 'html-source-editor';
+  const overlay = document.createElement('pre');
+  overlay.setAttribute('aria-hidden', 'true');
+  sourceEditor.append(overlay,input);
   const done = document.createElement('button');
   done.type = 'button';
   done.textContent = 'Done';
   let editing = false;
 
+  function highlight(element, source) {
+    const tokens=source.length<=200000?tokenizeCode(source,'html'):[];
+    const fragment=document.createDocumentFragment();
+    let end=0;
+    for(const token of tokens){
+      fragment.append(source.slice(end,token.start));
+      const span=document.createElement('span');
+      span.className='mp-syntax-'+token.type;
+      span.textContent=source.slice(token.start,token.end);
+      fragment.append(span);
+      end=token.end;
+    }
+    fragment.append(source.slice(end));
+    element.replaceChildren(fragment);
+    return tokens.length>0;
+  }
+  function alignSource(){overlay.scrollTop=input.scrollTop;overlay.scrollLeft=input.scrollLeft;}
+  function paintSource(){
+    sourceEditor.classList.toggle('highlighted',highlight(overlay,input.value+'\n'));
+    alignSource();
+  }
+
   function display() {
     editing = false;
     const preview = inline ? null : safePreview(node.attrs.source);
     const code = document.createElement('code');
-    code.textContent = node.attrs.source;
+    highlight(code,node.attrs.source);
     if (inline) {
       edit.replaceChildren(code);
       dom.replaceChildren(edit);
@@ -70,15 +100,18 @@ function htmlNodeView({node, editor, getPos}, inline) {
   edit.addEventListener('click', () => {
     editing = true;
     input.value = node.attrs.source;
-    dom.replaceChildren(input, done);
+    dom.replaceChildren(sourceEditor, done);
+    paintSource();
     input.focus();
   });
   input.addEventListener('input', () => {
+    paintSource();
     const pos = getPos();
     if (typeof pos === 'number') {
       editor.view.dispatch(editor.state.tr.setNodeMarkup(pos, undefined, {source: input.value}));
     }
   });
+  input.addEventListener('scroll',alignSource);
   done.addEventListener('click', () => {
     display();
     edit.focus();
@@ -99,7 +132,7 @@ function htmlNodeView({node, editor, getPos}, inline) {
       if (next.type !== node.type) return false;
       node = next;
       if (!editing) display();
-      else if (input.value !== next.attrs.source.replace(/\r\n?/g, '\n')) input.value = next.attrs.source;
+      else if (input.value !== next.attrs.source.replace(/\r\n?/g, '\n')){input.value=next.attrs.source;paintSource();}
       return true;
     },
   };

@@ -19,7 +19,7 @@ def load(browser,text='25',baseline=False):
  html=(ROOT/'app/index.html').read_text();html=re.sub(r'<meta[^>]+http-equiv=[^>]+>','',html,flags=re.I);html=re.sub(r'<script\b[^>]*>[\s\S]*?</script>|<link\b[^>]*>','',html,flags=re.I)
  page.set_content(html);page.add_style_tag(content=(ROOT/'app/main.css').read_text())
  session={'id':'test','name':'test.md','path':'test.md','markdown':text,'savedBytes':len(text.encode()),'dirty':False,'theme':'dark'}
- page.evaluate('''session=>{window.markpad={bootstrap:async()=>session,setTitle:async()=>{},checkpoint:async()=>({}),setTheme:async()=>{},onTheme:()=>{},onCommand:()=>{},setWordWrap:async()=>{},setZoom:async()=>{},save:async()=>({saved:true,name:'test.md',path:'test.md'})};}''',session)
+ page.evaluate('''session=>{const commands=[];window.markpadTestCommand=action=>Promise.all(commands.map(callback=>callback(action)));window.markpad={bootstrap:async()=>session,setTitle:async()=>{},checkpoint:async()=>({}),setTheme:async()=>{},onTheme:()=>{},onCommand:callback=>{commands.push(callback)},setWordWrap:async()=>{},setZoom:async()=>{},writeClipboard:async text=>{window.copiedText=text},save:async()=>({saved:true,name:'test.md',path:'test.md'})};}''',session)
  worker=(ROOT/'app/editor-runtime.js').read_text()+'\n'+re.sub(r"""importScripts\(['"]editor-runtime\.js['"]\);?""",'',(ROOT/'app/format-worker.js').read_text())
  page.evaluate('''code=>{const BaseWorker=window.Worker;window.Worker=class extends BaseWorker{constructor(url,options){if(url==='format-worker.js')url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));super(url,options);}};}''',worker)
  page.add_script_tag(content=(ROOT/'app/patch.js').read_text())

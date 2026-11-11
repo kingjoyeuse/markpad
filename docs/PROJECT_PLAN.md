@@ -131,3 +131,22 @@ and event attributes, in-place edits, CRLF preservation, Raw round trips,
 and HTML in the background formatting worker. The edge suite passed with
 both the offline and npm builds. All 61 Node tests passed, including parity
 of both refreshed runtime copies. Native Windows interaction was not exercised.
+
+## Menu and editor controls
+
+Each tool has one View menu item that follows the active window's pane state.
+New Markpad checkpoints the current document before replacing it in the same
+window. New Markpad Window opens a separate blank document. Formatted mode
+supports link editing and unlinking at caret boundaries and across selections.
+HTML source uses highlighting, and fenced code blocks offer language completion
+and clipboard copy on hover.
+
+All 61 Node tests, 37 complete UI checks, 54 edge checks, and 156 sidebar checks
+passed. A host integration check used mocked Electron APIs and real recovery
+files to verify the menu states, both New commands, and recovery after a failed
+reload. Both runtime copies matched the generated app.
+
+Windows test papercut: Electron refused to launch an isolated runtime in the
+test artifacts directory because of its AppContainer ACL. The first launch
+showed a breakpoint dialog. Native keyboard and menu interaction remain
+unverified. Use the mock host and browser fixtures when that ACL blocks launch.

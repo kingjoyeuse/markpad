@@ -30,7 +30,7 @@ const MarkpadTaskItem=TaskItem.extend({
 });
 
 export class DocumentEditor {
-  constructor({onChange,onSelection,onMode}) {
+  constructor({onChange,onSelection,onMode,copyText}) {
     this.onChange=onChange;this.onSelection=onSelection;this.onMode=onMode;
     this.richElement=document.querySelector('#rich-editor');this.raw=document.querySelector('#raw-editor');
     this.mode='formatted';this.originalSource='';this.richChanged=false;this.loading=false;this.rawUndo=[];this.rawRedo=[];
@@ -39,7 +39,7 @@ export class DocumentEditor {
       Markdown.configure({markedOptions:{gfm:true},indentation:{style:'space',size:2}}),
       TableKit.configure({table:{resizable:false}}),TaskList,MarkpadTaskItem.configure({nested:true}),
       ...htmlSourceExtensions(Node,MarkdownManager),
-      Image.configure({allowBase64:true}),ExpandableTables,LinkedCellEditing,CodeHighlight,Placeholder.configure({placeholder:'Start writing…'})
+      Image.configure({allowBase64:true}),ExpandableTables,LinkedCellEditing,CodeHighlight.configure({copyText}),Placeholder.configure({placeholder:'Start writing…'})
     ],content:'',contentType:'markdown',editorProps:{attributes:{'aria-label':'Formatted Markdown editor','role':'textbox','aria-multiline':'true',spellcheck:'true'},handleClick:(view,pos,event)=>{if(event.target.closest('a')){event.preventDefault();return true;}return false;},handleKeyDown:(view,event)=>this.handleDocumentKeyDown(view,event)},
     onUpdate:()=>{if(this.loading)return;this.richChanged=true;this.onChange?.();},
     onSelectionUpdate:()=>this.onSelection?.(),onFocus:()=>this.onSelection?.()});
@@ -260,6 +260,58 @@ export class DocumentEditor {
   }
   selectRange(from,to){if(this.mode==='raw'){this.raw.focus();this.raw.setSelectionRange(from,to);const line=this.raw.value.slice(0,from).split('\n').length;this.raw.scrollTop=Math.max(0,(line-4)*24);}else{this.editor.view.dispatch(this.editor.state.tr.setSelection(TextSelection.create(this.editor.state.doc,from,to)).scrollIntoView());this.editor.commands.focus();}this.onSelection?.();}
   selectAll(){if(this.mode==='raw'){this.raw.focus();this.raw.select();}else this.editor.chain().focus().selectAll().run();}
+  linkRanges(){
+    if(this.mode!=='formatted')return [];
+    const {doc,selection,schema}=this.editor.state;
+    const {from,to,$from}=selection;
+    const ranges=[];
+    const collect=(block,start)=>{
+      let range=null;
+      const append=()=>{
+        if(range&&(from===to?range.from<=from&&from<=range.to:range.from<to&&range.to>from))ranges.push(range);
+      };
+      block.forEach((child,offset)=>{
+        const mark=child.isText&&schema.marks.link.isInSet(child.marks);
+        if(range&&mark&&range.mark.eq(mark)){range.to=start+offset+child.nodeSize;return;}
+        append();
+        range=mark?{from:start+offset,to:start+offset+child.nodeSize,mark}:null;
+      });
+      append();
+    };
+    if(from===to){if($from.parent.isTextblock)collect($from.parent,$from.start());}
+    else doc.nodesBetween(from,to,(node,pos)=>{
+      if(node.isTextblock){collect(node,pos+1);return false;}
+    });
+    return from===to?ranges.slice(-1):ranges;
+  }
+  breakLinks(){
+    const ranges=this.linkRanges();
+    if(!ranges.length)return;
+    const {tr,schema}=this.editor.state;
+    for(const range of ranges)tr.removeMark(range.from,range.to,schema.marks.link);
+    this.editor.view.dispatch(closeHistory(tr.removeStoredMark(schema.marks.link)));
+    this.focus();
+    this.onSelection?.();
+  }
+  applyLink({from,to,text},href,label){
+    if(this.mode==='raw'){
+      if(href){this.selectRange(from,to);this.insertText('['+label+']('+href+')');}
+      return;
+    }
+    const {tr,schema}=this.editor.state,link=schema.marks.link;
+    if(href&&label!==text){
+      tr.insertText(label,from,to);
+      to=from+label.length;
+    }
+    if(from!==to){
+      tr.removeMark(from,to,link);
+      if(href)tr.addMark(from,to,link.create({href}));
+      tr.setSelection(TextSelection.between(tr.doc.resolve(from),tr.doc.resolve(to)));
+      this.editor.view.dispatch(closeHistory(tr.removeStoredMark(link)));
+    }
+    this.focus();
+    this.onSelection?.();
+  }
   undo(){if(this.mode==='formatted')return this.editor.chain().focus().undo().run();const prev=this.rawUndo.pop();if(!prev)return;this.rawRedo.push({value:this.raw.value,start:this.raw.selectionStart,end:this.raw.selectionEnd});this.trimRawHistory();this.raw.value=prev.value;this.raw.setSelectionRange(prev.start,prev.end);this.onChange?.();this.onSelection?.();}
   redo(){if(this.mode==='formatted')return this.editor.chain().focus().redo().run();const next=this.rawRedo.pop();if(!next)return;this.recordRawUndo();this.raw.value=next.value;this.raw.setSelectionRange(next.start,next.end);this.onChange?.();this.onSelection?.();}
   format(kind,value){
@@ -268,6 +320,10 @@ export class DocumentEditor {
     if(kind==='bold')c.toggleBold();else if(kind==='italic')c.toggleItalic();else if(kind==='underline')c.toggleUnderline();else if(kind==='strike')c.toggleStrike();
     else if(kind==='bulletList')c.toggleBulletList();else if(kind==='orderedList')c.toggleOrderedList();else if(kind==='taskList')c.toggleTaskList();
     else if(kind==='blockquote')c.toggleBlockquote();else if(kind==='code')c.toggleCode();else if(kind==='codeBlock')c.toggleCodeBlock();
+    else if(kind==='htmlBlock'){
+      const {$to}=this.editor.state.selection;
+      c.insertContentAt($to.depth?$to.after(1):$to.pos,{type:'htmlSourceBlock',attrs:{source:'<div>\n</div>'}});
+    }
     else if(kind==='horizontalRule')c.setHorizontalRule();else if(kind==='table')c.insertTable({rows:2,cols:1,withHeaderRow:true});
     else if(kind==='paragraph')c.setParagraph();else if(/^h[1-6]$/.test(kind))c.toggleHeading({level:Number(kind.slice(1))});
     else if(kind==='link'){if(!value)c.unsetLink();else c.extendMarkRange('link').setLink({href:value});}
@@ -279,6 +335,10 @@ export class DocumentEditor {
     if(wrappers[kind]){const w=wrappers[kind];replacement=w+(text||'text')+(kind==='underline'?'</u>':w);}
     else if(kind==='link')replacement='['+(text||'link text')+']('+(value||'https://')+')';
     else if(kind==='codeBlock')replacement='\n```\n'+text+'\n```\n';
+    else if(kind==='htmlBlock'){
+      this.raw.setSelectionRange(sel.to,sel.to);
+      replacement='\n\n<div>\n</div>\n\n';
+    }
     else if(kind==='horizontalRule')replacement='\n\n---\n\n';
     else if(kind==='table')replacement='\n\n|  |\n| --- |\n|  |\n\n';
     else if(['bulletList','orderedList','taskList','blockquote','paragraph'].includes(kind)||/^h[1-6]$/.test(kind)){

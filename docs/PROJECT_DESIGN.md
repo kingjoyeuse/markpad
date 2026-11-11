@@ -34,9 +34,13 @@ The application must not silently erase unsupported Markdown when switching mode
 
 Embedded HTML keeps its own source within Formatted mode. Render a limited set
 of static HTML blocks locally and show other blocks and inline tags as source.
-Each region supports source editing in place. Save the region as raw HTML
+Each region supports highlighted source editing in place. Save the region as raw HTML
 without adding Markdown fences, and never execute its markup or load its
 external resources.
+
+New Markpad uses Ctrl+N to preserve the current document in recovery before
+opening a blank document in the same window. New Markpad Window uses
+Ctrl+Shift+N to open a separate blank window.
 
 ### Raw mode
 

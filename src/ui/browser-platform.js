@@ -13,6 +13,7 @@ export function browserPlatform(notice){
       state.markdown=markdown;state.dirty=false;persist();return{saved:true,name:state.name,path:state.path};
     },
     async open(){document.querySelector('#browser-open').click();},
+    async newDocument(){location.href=location.pathname+'?session='+crypto.randomUUID();},
     async newWindow(){window.open(location.pathname+'?session='+crypto.randomUUID(),'_blank');},
     async listRecents(){return Object.keys(localStorage).filter(key=>key.startsWith(prefix)).map(read).filter(Boolean).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)).map(row=>({...row,excerpt:row.markdown.slice(0,110),kind:row.path?'file':'draft'}));},
     async openRecent(nextId){window.open(location.pathname+'?session='+encodeURIComponent(nextId),'_blank');},

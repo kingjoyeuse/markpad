@@ -6,6 +6,10 @@ const LANGUAGE_NAMES = new Map(Object.entries({
   json:'json',css:'css',html:'html',xml:'html',sh:'bash',bash:'bash',shell:'bash',
   sql:'sql',java:'java',go:'go',rust:'rust',rs:'rust',rb:'ruby',ruby:'ruby',
 }));
+export const codeLanguages = [...new Set(LANGUAGE_NAMES.values())].sort();
+export function codeLanguage(value) {
+  return LANGUAGE_NAMES.get(value.trim().toLowerCase());
+}
 const C_KEYWORDS = 'auto break case char const continue default do double else enum extern float for goto if inline int long register restrict return short signed sizeof static struct switch typedef union unsigned void volatile while _Atomic _Bool _Complex _Generic _Imaginary _Noreturn _Static_assert _Thread_local';
 const CPP_KEYWORDS = `${C_KEYWORDS} alignas alignof and asm bool catch class constexpr consteval constinit decltype delete dynamic_cast explicit export false friend mutable namespace new noexcept nullptr operator or override private protected public reinterpret_cast requires static_assert static_cast template this thread_local throw true try typeid typename using virtual wchar_t`; 
 const KEYWORDS = {
@@ -29,6 +33,7 @@ const COMMON_TYPES = new Set(['uint8_t','uint16_t','uint32_t','uint64_t','int8_t
 export function tokenizeCode(text, language) {
   const lang = LANGUAGE_NAMES.get(String(language || '').toLowerCase());
   if (!lang || !text) return [];
+  if (lang === 'html') return tokenizeHtml(text);
   const tokens = [];
   const kw = KEYWORD_SETS[lang] || new Set();
   const cLike = !['python','bash','ruby','sql'].includes(lang);
@@ -59,6 +64,25 @@ export function tokenizeCode(text, language) {
       continue;
     }
     i++;
+  }
+  return tokens;
+}
+
+function tokenizeHtml(text) {
+  const tokens = [];
+  for (const match of text.matchAll(/<!--[\s\S]*?(?:-->|$)|<\/?[a-z][\w:-]*(?:[^"'<>]|"[^"]*"|'[^']*')*>|<!doctype[^>]*>/gi)) {
+    const start = match.index, tag = match[0];
+    if (tag.startsWith('<!--')) {
+      tokens.push({start, end: start + tag.length, type: 'comment'});
+      continue;
+    }
+    for (const part of tag.matchAll(/^<\/?!?[\w:-]+|\/?>$|"[^"]*"|'[^']*'|[\w:-]+(?=\s*=)/g)) {
+      tokens.push({
+        start: start + part.index,
+        end: start + part.index + part[0].length,
+        type: /^["']/.test(part[0]) ? 'string' : /^[<>/]/.test(part[0]) ? 'keyword' : 'type',
+      });
+    }
   }
   return tokens;
 }

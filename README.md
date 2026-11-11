@@ -44,7 +44,7 @@ The supplied notepad/M artwork is used as a transparent application icon. Window
 
 The build targets Windows x64. It has been assembled from the official checksum-verified Electron runtime. **The Windows executable was packaged here, but has not been executed on Windows in this environment.** The actual desktop host and interface were exercised on Linux as described below. This initial build is unsigned.
 
-Launch Markpad again, or choose **File → New Window**, for another independent document. Open files also receive their own windows. **File → Recent Files & Drafts** includes closed unsaved notes and unsaved edits to previously saved files. Closing a window preserves its draft; explicitly choosing Save writes the Markdown file.
+Choose **File → New Markpad** (Ctrl+N) for a blank document in the current window. The previous document is preserved in **Recent Files & Drafts** before the window switches. **New Markpad Window** (Ctrl+Shift+N) or a separate launch opens an independent window. Choosing Save writes the Markdown file.
 
 ## Editor and appearance
 
@@ -53,6 +53,9 @@ Launch Markpad again, or choose **File → New Window**, for another independent
 - The toolbar includes paragraph/headings, emphasis, lists, checklists, links, code, tables, and rules. Use the table button for table authoring.
 - **Ctrl+Tab** switches between Formatted and Raw. The Raw surface includes the entire saved Markdown, including any managed spreadsheet appendix.
 - HTML stays in the formatted document. Supported static blocks, such as `<details>`, render in place. Other HTML appears as source. Select **Edit HTML** on a block or click an inline tag to edit its source. Markpad saves the HTML directly in the Markdown file.
+- The **HTML** toolbar button inserts an empty HTML section. HTML source uses syntax highlighting.
+- In Formatted mode, the link button switches to **Edit link** when the caret touches a link or the selection includes one. **Break link** removes each link touched by the selection and leaves its text in place.
+- Hover over a fenced code block to choose its highlighting language or copy its contents. Type a language name and press Enter to complete it, or clear the field for plain text.
 - **View → Appearance → Light / Dark / System** controls the theme. System is the default and follows changes to the OS preference.
 - The right-edge Calculator and Spreadsheet ribbon tabs open/close independently. Both can remain open, calculator above spreadsheet. Drag the sidebar divider to change its width.
 - Find/Replace is available through the Edit menu and Ctrl+F/Ctrl+H.

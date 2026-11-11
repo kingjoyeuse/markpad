@@ -14,10 +14,53 @@ with sync_playwright() as p:
  source='```c\nint main(void) {\n  return 0;\n}\n```\n'
  page,errors=f.load(browser,source)
  f.check(page.locator('.tiptap pre code').count()==1,'Fenced C block is editable and rendered')
+ page.locator('.code-block-shell').hover()
+ language=page.get_by_role('textbox',name='Code language')
+ language.fill('pyt');language.press('Enter')
+ f.check(page.evaluate('markpadInspect.source()').startswith(chr(96)*3+'python'),'Code language autocompletes and updates the saved fence')
+ page.get_by_role('button',name='Copy code block').click()
+ f.check(page.evaluate('window.copiedText')=='int main(void) {\n  return 0;\n}','Copy code copies the full code content')
  page.locator('.tiptap pre code').click();page.keyboard.press('Home');page.keyboard.press('Tab')
  f.check(page.evaluate("document.activeElement.closest('.tiptap')!==null"),'Tab inside code stays in editor')
  f.check('\t' in page.evaluate('markpadInspect.source()'),'Tab indents code')
  page.keyboard.press('Shift+Tab');f.check(not errors,'Code indentation has no errors',errors);page.close()
+ page,errors=f.load(browser,'[One](https://one.example) and [Two](https://two.example)')
+ rich=page.locator('.tiptap')
+ page.evaluate("markpadApp.editor().selectRange(1,1)")
+ page.get_by_role('button',name='Edit link',exact=True).click()
+ f.check(page.get_by_role('textbox',name='Link address').input_value()=='https://one.example','Link button edits a link at the caret boundary')
+ page.get_by_role('button',name='Cancel',exact=True).click()
+ rich.focus();page.keyboard.press('Control+a')
+ page.get_by_role('button',name='Edit link',exact=True).click()
+ page.get_by_role('button',name='Cancel',exact=True).click()
+ f.check(rich.locator('a').count()==2,'Cancel leaves links in a mixed selection unchanged')
+ rich.focus();page.keyboard.press('Control+a')
+ page.get_by_role('button',name='Edit link',exact=True).click()
+ page.get_by_role('textbox',name='Link address').fill('https://all.example')
+ page.get_by_role('button',name='Apply',exact=True).click()
+ f.check(rich.locator('a').count()==1 and rich.locator('a').inner_text()=='One and Two','Apply links the entire mixed selection')
+ page.keyboard.press('Control+z')
+ page.evaluate("markpadApp.editor().selectRange(2,10)")
+ page.get_by_role('button',name='Break link').click()
+ f.check(rich.locator('a').count()==0 and rich.inner_text()=='One and Two','Break link removes full links touched by a partial selection')
+ page.wait_for_function("document.querySelector('[data-format=breakLink]').disabled")
+ page.get_by_role('button',name='Insert HTML block').click()
+ f.check(page.locator('.html-source-block').count()==1 and '<div>\n</div>' in page.evaluate('markpadInspect.source()') and 'One and Two' in page.evaluate('markpadInspect.source()'),'Toolbar inserts a blank HTML section without replacing selected text')
+ f.check(not errors,'Toolbar edits have no renderer errors',errors)
+ page.evaluate("""async () => {
+   window.newMarkpadCalls = [];
+   markpad.newDocument = async () => newMarkpadCalls.push('replace');
+   markpad.checkpoint = async () => { throw new Error('test write failed'); };
+   await markpadTestCommand('new-document');
+ }""")
+ f.check(page.evaluate('newMarkpadCalls.length')==0 and 'One and Two' in page.evaluate('markpadInspect.source()'),'New Markpad leaves the document available when its checkpoint fails')
+ page.evaluate("""async () => {
+   markpad.checkpoint = async state => newMarkpadCalls.push(state.markdown);
+   await markpadTestCommand('new-document');
+ }""")
+ calls=page.evaluate('newMarkpadCalls')
+ f.check(calls==[page.evaluate('markpadInspect.source()'),'replace'],'New Markpad checkpoints the current text before switching',calls)
+ page.close()
  source='# Folder patterns\r\n\r\nUse <repeat>_landscapes for scenery.\r\n'
  page,errors=f.load(browser,source)
  f.check(page.locator('.tiptap h1').inner_text()=='Folder patterns','Filename placeholder allows formatted opening')
@@ -42,6 +85,7 @@ with sync_playwright() as p:
  page.locator('.tiptap h1').click();page.keyboard.press('End');page.keyboard.type(' updated')
  f.check(all(raw in page.evaluate('markpadInspect.source()') for raw in (details,script,unsafe,'<br>')),'Editing nearby Markdown preserves HTML and CRLF')
  page.get_by_role('button',name='Edit HTML source').first.click()
+ f.check(page.locator('.html-source-editor .mp-syntax-keyword').count()>0,'HTML source editing highlights tags')
  page.get_by_role('textbox',name='HTML source').fill(details.replace('Details','Edited'))
  page.get_by_role('button',name='Done',exact=True).click()
  f.check(page.locator('.tiptap details p').text_content()=='Edited','HTML block can be edited in place')
