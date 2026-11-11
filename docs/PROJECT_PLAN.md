@@ -105,3 +105,15 @@ highlighting, and the destination after Tab and Enter.
 Both 0.1.4 packages built from Electron 45.2.3 and passed the release verifier's
 archive, PE resource, embedded payload, and checksum checks. Native execution
 of the new installer and portable ZIP remains unverified.
+
+## Markdown filename placeholders
+
+Bare filename placeholders such as `<repeat>_landscapes` now open as literal
+text in Formatted mode. The Raw fallback still protects HTML such as `<br>`.
+The Batch Tagger README opened formatted in Chrome on Windows, toggled both
+ways with Ctrl+Tab, and retained its exact source. A larger variant also
+promoted through the formatting worker. The edit-and-reopen regression passed.
+
+All 61 Node tests, 37 complete UI checks, 32 edge checks, and 156 sidebar
+layout checks passed. Both local runtime copies were refreshed and matched
+the generated app. Native Windows interaction was not exercised.

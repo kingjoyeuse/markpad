@@ -304,6 +304,12 @@ export function needsRawPreservation(source){
     if(fence){if(mark&&mark[1][0]===fence[0]&&mark[1].length>=fence.length&&line.slice(mark[0].length).trim()==='')fence=null;continue;}
     if(mark){fence=mark[1];continue;}
     line=line.replace(/<\/?u>/gi,'').replace(/`[^`]*`/g,'').replace(/\\</g,'');
+    // The Markdown parser preserves unknown tags as text. Allow bare filename
+    // placeholders such as <name>_suffix while still checking for real markup.
+    line=line.replace(/<([a-z][a-z0-9]*)>(?=_[a-z0-9])/gi,(tag,name)=>{
+      if(/^(svg|math)$/i.test(name))return tag;
+      return document.createElement(name) instanceof HTMLUnknownElement?'':tag;
+    });
     if(/<!--|<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^>]*|\s*\/?)>|^ {0,3}\[[^\]]+\]:|^\$\$/i.test(line))return true;
   }
   return false;

@@ -18,6 +18,22 @@ with sync_playwright() as p:
  f.check(page.evaluate("document.activeElement.closest('.tiptap')!==null"),'Tab inside code stays in editor')
  f.check('\t' in page.evaluate('markpadInspect.source()'),'Tab indents code')
  page.keyboard.press('Shift+Tab');f.check(not errors,'Code indentation has no errors',errors);page.close()
+ source='# Folder patterns\r\n\r\nUse <repeat>_landscapes for scenery.\r\n'
+ page,errors=f.load(browser,source)
+ f.check(page.locator('.tiptap h1').inner_text()=='Folder patterns','Filename placeholder allows formatted opening')
+ f.check(page.locator('.tiptap p').inner_text()=='Use <repeat>_landscapes for scenery.','Filename placeholder displays as literal text')
+ page.keyboard.press('Control+Tab');page.keyboard.press('Control+Tab')
+ f.check(page.evaluate('markpadInspect.state().mode')=='formatted' and page.evaluate('markpadInspect.source()')==source,'Ctrl+Tab preserves the exact placeholder Markdown')
+ page.locator('.tiptap p').click();page.keyboard.press('Control+End');page.keyboard.type(' Updated.')
+ edited=page.evaluate('markpadInspect.source()');page.close()
+ page,errors=f.load(browser,edited)
+ f.check(page.locator('.tiptap p').inner_text()=='Use <repeat>_landscapes for scenery. Updated.','Filename placeholder survives a formatted edit and reopen')
+ page.close()
+ source='# HTML\n\nLine break<br>_suffix.\n'
+ page,errors=f.load(browser,source)
+ page.keyboard.press('Control+Tab')
+ f.check(page.evaluate('markpadInspect.state().mode')=='raw' and page.evaluate('markpadInspect.source()')==source,'Real HTML still stays in Raw mode')
+ page.close()
  # A fast-text file may promote while another pane has keyboard focus. Never steal it.
  source=('25\n\n'+('**Paragraph:** editable content.\n\n'*4500)).replace('\n','\r\n')
  page,errors=f.load(browser,source);page.locator('#raw-editor').focus();page.evaluate("document.querySelector('#raw-editor').setSelectionRange(0,2)");page.keyboard.press('Alt+Shift+ArrowRight')
