@@ -1,4 +1,3 @@
-import './styles.css';
 import {DocumentEditor,needsRawPreservation} from './ui/editor.js';
 import {SpreadsheetView} from './ui/spreadsheet.js';
 import {browserPlatform} from './ui/browser-platform.js';
@@ -49,7 +48,7 @@ function queueFormatting(delay=100){
   formatTimer=setTimeout(()=>{
     if(!formatPending||composing){if(formatPending)queueFormatting(300);return;}
     const fullSource=editor.getRaw(),parsed=parseDocument(fullSource),id=formatGeneration;
-    if(needsRawPreservation(parsed.body)){cancelFormatting();showDocumentWarnings([...parsed.warnings,'Raw mode preserves unsupported source exactly.']);return;}
+    if(parsed.warnings.length||needsRawPreservation(parsed.body)){cancelFormatting();showDocumentWarnings([...parsed.warnings,'Raw mode preserves unsupported source exactly.']);return;}
     try{
       const worker=new Worker('format-worker.js');formatWorker=worker;
       worker.onerror=()=>{if(id!==formatGeneration)return;cancelFormatting();notice('Formatting could not complete; the full document remains editable in Raw mode.',6500);};
@@ -174,11 +173,11 @@ async function save(saveAs=false){
 function toggleMode(){
   sheet.commitEditing();
   if(formatPending){cancelFormatting();return;}
-  if(editor.mode==='raw'&&editor.getRaw().length>65536&&!needsRawPreservation(parseDocument(editor.getRaw()).body)){beginFormatting(editor.getRaw(),{keepSelection:true});return;}
   if(editor.mode==='formatted'){editor.switchMode('raw',{fullSource:getSource()});rawChangedSinceSync=false;showDocumentWarnings([]);}
   else{
-    const parsed=parseCurrentSource(editor.getRaw());
-    if(needsRawPreservation(parsed.body)){showDocumentWarnings([...parsed.warnings,'Raw mode preserves extended source (such as HTML, front matter, or an edited spreadsheet section) exactly.']);notice('Keeping raw mode to preserve this document’s source.');return;}
+    const source=editor.getRaw(),parsed=parseCurrentSource(source);
+    if(parsed.warnings.length||needsRawPreservation(parsed.body)){showDocumentWarnings([...parsed.warnings,'Raw mode preserves extended source such as front matter or an edited spreadsheet section.']);notice('Keeping raw mode to preserve this document’s source.');return;}
+    if(source.length>65536){beginFormatting(source,{keepSelection:true});return;}
     if(JSON.stringify(workbook)!==JSON.stringify(parsed.workbook)){workbook=parsed.workbook;sheet.setWorkbook(workbook);workbook=sheet.workbook;}rawChangedSinceSync=false;editor.switchMode('formatted',{body:parsed.body});showDocumentWarnings(parsed.warnings);
   }
   $('#mode-label').textContent=editor.mode==='raw'?'Raw':'Formatted';$('#mode-icon').textContent=editor.mode==='raw'?'</>':'¶';
@@ -387,7 +386,7 @@ function wireUI(){
 async function start(){
   session=await platform.bootstrap();applyTheme(session.theme);const parsed=parseDocument(session.markdown||'');workbook=parsed.workbook;savedSource=session.dirty?null:session.markdown||'';dirty=Boolean(session.dirty);
   savedBytes=Number.isFinite(session.savedBytes)?session.savedBytes:session.path&&!session.dirty?utf8Bytes(session.markdown||''):0;
-  const requiresRaw=needsRawPreservation(parsed.body),progressive=!requiresRaw&&parsed.body.length>65536;
+  const requiresRaw=Boolean(parsed.warnings.length)||needsRawPreservation(parsed.body),progressive=!requiresRaw&&parsed.body.length>65536;
   editor=new DocumentEditor({onChange:()=>{if(editor?.mode==='raw')rawChangedSinceSync=true;editChanged();},onSelection:status});editor.setBody(requiresRaw||progressive?'':parsed.body);
   if(progressive)beginFormatting(session.markdown||'');
   sheet=new SpreadsheetView({element:$('#sheet-content'),workbook,onNotice:notice,onInsert:insertSpreadsheet,onChange:worksheetChanged});

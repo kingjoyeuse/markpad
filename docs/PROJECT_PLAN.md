@@ -117,3 +117,17 @@ promoted through the formatting worker. The edit-and-reopen regression passed.
 All 61 Node tests, 37 complete UI checks, 32 edge checks, and 156 sidebar
 layout checks passed. Both local runtime copies were refreshed and matched
 the generated app. Native Windows interaction was not exercised.
+
+## Embedded HTML in Formatted mode
+
+Supported static HTML blocks render in place. Unsupported blocks and inline
+tags display as editable source. The HTML source remains separate from the
+preview and saves directly into the Markdown. Conflicted workbook sections
+still use Raw mode.
+
+On Windows, Chrome passed 37 complete UI checks, 42 edge checks, and 156
+sidebar checks. The edge suite covers expanding HTML details, inert script
+and event attributes, in-place edits, CRLF preservation, Raw round trips,
+and HTML in the background formatting worker. The edge suite passed with
+both the offline and npm builds. All 61 Node tests passed, including parity
+of both refreshed runtime copies. Native Windows interaction was not exercised.

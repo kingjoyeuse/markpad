@@ -3,7 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 const externals={
- '@tiptap/core':{Editor:'Editor',InputRule:'InputRule',Extension:'Extension'},
+ '@tiptap/core':{Editor:'Editor',InputRule:'InputRule',Extension:'Extension',Node:'Node'},
  '@tiptap/starter-kit':{default:'StarterKit'},
  '@tiptap/markdown':{Markdown:'Markdown',MarkdownManager:'MarkdownManager'},
  '@tiptap/extension-table':{TableKit:'TableKit'},
@@ -46,6 +46,6 @@ await fs.copyFile('vendor/editor-runtime.js','app/editor-runtime.js');
 for(const f of ['index.html','patch.js','runtime-enhancements.js'])await fs.copyFile('src/'+f,'app/'+f);
 await fs.mkdir('app/ui',{recursive:true});
 for(const f of ['source-position.js','recent-time.js','code-lexer.js'])await fs.copyFile('src/ui/'+f,'app/ui/'+f);
-try{await fs.copyFile('src/format-worker.js','app/format-worker.js');}catch(e){if(e.code!=='ENOENT')throw e;}
+await fs.writeFile('app/format-worker.js',await bundle('src/format-worker.js'));
 await fs.writeFile('app/build-info.json',JSON.stringify({version:'0.1.4',release:'releases-0.1.4',builtAt:new Date().toISOString(),builder:'offline-source',bytes:(await fs.stat('app/main.js')).size},null,2));
 console.log('Built complete Markpad app from current source using offline editor dependencies.');

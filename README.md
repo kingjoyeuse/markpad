@@ -52,6 +52,7 @@ Launch Markpad again, or choose **File → New Window**, for another independent
 - Completed heading, bold, italic, strikethrough, inline-code, list, checklist, quote, link, code-block, and horizontal-rule input patterns are supported. A Markdown code fence starts its code block when followed by a space; the toolbar also offers a code-block button.
 - The toolbar includes paragraph/headings, emphasis, lists, checklists, links, code, tables, and rules. Use the table button for table authoring.
 - **Ctrl+Tab** switches between Formatted and Raw. The Raw surface includes the entire saved Markdown, including any managed spreadsheet appendix.
+- HTML stays in the formatted document. Supported static blocks, such as `<details>`, render in place. Other HTML appears as source. Select **Edit HTML** on a block or click an inline tag to edit its source. Markpad saves the HTML directly in the Markdown file.
 - **View → Appearance → Light / Dark / System** controls the theme. System is the default and follows changes to the OS preference.
 - The right-edge Calculator and Spreadsheet ribbon tabs open/close independently. Both can remain open, calculator above spreadsheet. Drag the sidebar divider to change its width.
 - Find/Replace is available through the Edit menu and Ctrl+F/Ctrl+H.
@@ -152,7 +153,7 @@ For six small notes with both panes hidden, the final Linux headless samples wer
 
 Other initial limits:
 
-- Unrecognized/extended Markdown such as front matter, HTML, or link-reference definitions stays in Raw mode to preserve it. Documents above approximately 1 MiB of source also use Raw mode to avoid a large rich-editor parse.
+- Extended Markdown such as front matter or link-reference definitions stays in Raw mode to preserve it. Documents above the 8 Mi-character formatting limit also stay in Raw mode.
 - Formatted and raw editing have separate undo histories; a single continuous cross-mode history is not yet provided. Unchanged mode toggles retain the raw history. Raw snapshots have an 8 MiB history target (one oversized latest snapshot is retained); spreadsheet history is bounded separately.
 - JavaScript-number precision is used, with ordinary floating-point noise reduced in display. This is not an arbitrary-precision accounting engine.
 - Range evaluation and generated table rectangles are bounded at 100,000 cells. Very distant sparse cells may exceed the Markdown export rectangle limit even when few cells are filled.

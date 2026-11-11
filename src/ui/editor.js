@@ -1,6 +1,6 @@
-import {Editor,InputRule} from '@tiptap/core';
+import {Editor,InputRule,Node} from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import {Markdown} from '@tiptap/markdown';
+import {Markdown,MarkdownManager} from '@tiptap/markdown';
 import {TableKit} from '@tiptap/extension-table';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
@@ -14,6 +14,7 @@ import {cellLinkId,CELL_LINK_PREFIX,linkedDisplay,findRawCellLinks,mapSourceOffs
 import {createEvaluator} from '../core/workbook.js';
 import {CodeHighlight} from './code-highlight.js';
 import {mapDocumentPositions} from './source-position.js';
+import {htmlSourceExtensions} from './html-source.js';
 
 const MarkpadTaskItem=TaskItem.extend({
   addInputRules(){
@@ -37,6 +38,7 @@ export class DocumentEditor {
       StarterKit.configure({underline:true,link:{openOnClick:false,autolink:false,markdownLinks:true,defaultProtocol:'https',isAllowedUri:(uri)=>/^(https?:\/\/|mailto:|#)/i.test(uri)}}),
       Markdown.configure({markedOptions:{gfm:true},indentation:{style:'space',size:2}}),
       TableKit.configure({table:{resizable:false}}),TaskList,MarkpadTaskItem.configure({nested:true}),
+      ...htmlSourceExtensions(Node,MarkdownManager),
       Image.configure({allowBase64:true}),ExpandableTables,LinkedCellEditing,CodeHighlight,Placeholder.configure({placeholder:'Start writing…'})
     ],content:'',contentType:'markdown',editorProps:{attributes:{'aria-label':'Formatted Markdown editor','role':'textbox','aria-multiline':'true',spellcheck:'true'},handleClick:(view,pos,event)=>{if(event.target.closest('a')){event.preventDefault();return true;}return false;},handleKeyDown:(view,event)=>this.handleDocumentKeyDown(view,event)},
     onUpdate:()=>{if(this.loading)return;this.richChanged=true;this.onChange?.();},
@@ -116,13 +118,14 @@ export class DocumentEditor {
     this.loading=true;
     try{
       this.originalSource=String(source);this.richChanged=false;
+      this.useCRLF=this.originalSource.includes('\r\n')&&!/(?<!\r)\n|\r(?!\n)/.test(this.originalSource);
       this.editor.chain().setMeta('addToHistory',false).setContent(content,options).run();
       this.editor.view.dispatch(closeHistory(this.editor.state.tr));
     }finally{this.loading=false;}
   }
   showFastText(source,{keepSelection=false}={}){const start=keepSelection?this.raw.selectionStart:0,end=keepSelection?this.raw.selectionEnd:0;this.raw.value=source;this.rawSnapshot={source:String(source),value:this.raw.value};this.richElement.hidden=true;this.raw.hidden=false;this.mode='raw';this.raw.setSelectionRange(start,end);this.raw.spellcheck=false;this.richElement.classList.add('large-document');}
   setBody(source){this.replaceLoadedContent(source,source,{contentType:'markdown',emitUpdate:false});}
-  getBody(){if(!this.richChanged)return this.originalSource;const doc=this.editor.state.doc;if(this.serializedDoc!==doc){this.serializedBody=this.editor.getMarkdown();this.serializedDoc=doc;}return this.serializedBody;}
+  getBody(){if(!this.richChanged)return this.originalSource;const doc=this.editor.state.doc;if(this.serializedDoc!==doc){const markdown=this.editor.getMarkdown();this.serializedBody=this.useCRLF?markdown.replace(/\r?\n/g,'\r\n'):markdown;this.serializedDoc=doc;}return this.serializedBody;}
   getRaw(){return this.rawSnapshot?.value===this.raw.value?this.rawSnapshot.source:this.raw.value;}
   setRaw(source,{history=false}={}){if(history){this.recordRawUndo();this.rawRedo=[];}this.raw.value=source;this.rawSnapshot={source:String(source),value:this.raw.value};this.onSelection?.();}
   switchMode(mode,{body,fullSource,json,preserveFocus=false}={}){
@@ -304,13 +307,7 @@ export function needsRawPreservation(source){
     if(fence){if(mark&&mark[1][0]===fence[0]&&mark[1].length>=fence.length&&line.slice(mark[0].length).trim()==='')fence=null;continue;}
     if(mark){fence=mark[1];continue;}
     line=line.replace(/<\/?u>/gi,'').replace(/`[^`]*`/g,'').replace(/\\</g,'');
-    // The Markdown parser preserves unknown tags as text. Allow bare filename
-    // placeholders such as <name>_suffix while still checking for real markup.
-    line=line.replace(/<([a-z][a-z0-9]*)>(?=_[a-z0-9])/gi,(tag,name)=>{
-      if(/^(svg|math)$/i.test(name))return tag;
-      return document.createElement(name) instanceof HTMLUnknownElement?'':tag;
-    });
-    if(/<!--|<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^>]*|\s*\/?)>|^ {0,3}\[[^\]]+\]:|^\$\$/i.test(line))return true;
+    if(/^ {0,3}\[[^\]]+\]:|^\$\$/i.test(line))return true;
   }
   return false;
 }

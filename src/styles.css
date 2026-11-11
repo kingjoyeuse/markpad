@@ -121,6 +121,19 @@
 /* Editable contentDOM is transparent only in the portable-runtime fallback.
    The visually colored layer is noninteractive and never enters the document. */
 .tiptap pre.mp-codeblock { position: relative; }
+.tiptap .html-source-block { margin: .8em 0; }
+.tiptap .html-source-block > pre { margin: 0; }
+.tiptap .html-source-block > button,
+.tiptap .html-source-inline > button { color: var(--muted); font-size: 12px; }
+.tiptap .html-source-inline > button { padding: 0; vertical-align: baseline; }
+.tiptap .html-source-inline > button > code { color: var(--text); }
+.tiptap .html-source-block textarea,
+.tiptap .html-source-inline textarea {
+  width: 100%; min-height: 6em; padding: 8px; resize: vertical;
+  background: var(--chrome); border: 1px solid var(--line);
+  font: 13px/1.6 Consolas, monospace;
+}
+.tiptap .html-source-inline textarea { width: min(36em, 80%); vertical-align: middle; }
 .tiptap pre.mp-codeblock .mp-code-input {
   display: block; position: relative; z-index: 1; min-height: 1.6em;
   white-space: pre; caret-color: var(--accent);

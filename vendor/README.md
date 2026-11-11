@@ -11,3 +11,5 @@ Copyright/license ownership remains with the component authors listed in THIRD_P
 This update additionally exposes the already bundled, public `closeHistory` helper
 from the exact same pinned ProseMirror history module (no dependency upgrade).
 It gives linked insertions a separate undo boundary from subsequent typing.
+The snapshot also exposes Tiptap's public `Node` class so the renderer and
+formatting worker can share the embedded HTML node definitions.

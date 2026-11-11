@@ -32,6 +32,12 @@ Baseline formatting covers paragraphs, headings, bold, italic, strike-through, l
 
 The application must not silently erase unsupported Markdown when switching modes or saving. Unsupported structures must remain recoverable in the source, or the application must keep that document in Raw mode and clearly explain the limitation before a lossy conversion. Loading an existing file and saving without a user edit must not rewrite its contents merely because it was displayed.
 
+Embedded HTML keeps its own source within Formatted mode. Render a limited set
+of static HTML blocks locally and show other blocks and inline tags as source.
+Each region supports source editing in place. Save the region as raw HTML
+without adding Markdown fences, and never execute its markup or load its
+external resources.
+
 ### Raw mode
 
 Raw mode exposes Markdown source for direct editing. `Ctrl+Tab` toggles Formatted/Raw. Switching modes preserves document content, the best available corresponding caret position, and the ability to undo ordinary editing operations. Mode changes alone are not document edits.
