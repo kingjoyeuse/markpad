@@ -30,9 +30,9 @@ try {
         foreach ($name in $assets) {
             if (-not (Test-Path -LiteralPath (Join-Path $releaseDir $name))) { throw "Missing dist\releases\$name. Extract the complete release project ZIP or run Build-Releases.cmd first." }
         }
-        $release = Get-Content -LiteralPath (Join-Path $releaseDir 'release-manifest.json') -Raw | ConvertFrom-Json
-        if ($release.version -ne $version) { throw 'The release artifacts are for a different source version. Rebuild them.' }
-        foreach ($entry in $release.sourceHashes.PSObject.Properties) {
+        $releaseManifest = Get-Content -LiteralPath (Join-Path $releaseDir 'release-manifest.json') -Raw | ConvertFrom-Json
+        if ($releaseManifest.version -ne $version) { throw 'The release artifacts are for a different source version. Rebuild them.' }
+        foreach ($entry in $releaseManifest.sourceHashes.PSObject.Properties) {
             $file = Join-Path $root $entry.Name
             if (-not (Test-Path -LiteralPath $file) -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { throw "Source changed since this release was built: $($entry.Name). Rebuild before publishing." }
         }
