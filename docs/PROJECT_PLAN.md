@@ -162,3 +162,14 @@ On Windows, 61 Node tests and 62 Chrome edge checks passed, including language
 filtering and selection, an HTML mouse drag, and the inline code slot. The
 complete UI and sidebar suites passed 37 and 156 checks. Both local runtime
 copies matched the generated app. Native Windows interaction was not tested.
+
+## Windows 0.1.4 prerelease
+
+The table toolbar icon has a white top row in Light and Dark themes. The
+installer and portable ZIP were rebuilt from the release source using
+Electron 45.2.3. The release verifier passed archive, executable resource,
+embedded payload, source parity, and SHA-256 checks.
+
+The 61 Node tests and the complete UI, edge, and sidebar Chrome suites passed.
+Chrome also verified the icon's white fill and one-row height in both themes.
+The installer and portable executable were not run natively for this release.
