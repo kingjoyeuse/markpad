@@ -41,10 +41,15 @@ try {
             if ((Get-FileHash -LiteralPath (Join-Path $releaseDir $Matches[2]) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $Matches[1]) { throw 'A release artifact has changed or is incomplete. Download or rebuild it again.' }
         }
     }
-    if (-not (Probe 'gh' @('auth','status','--hostname','github.com')).Ok) {
+    # auth status can fail for an inactive account even when the active
+    # account can publish. Check the account that would make the API calls.
+    $activeAccount = Probe 'gh' @('api','user','--hostname','github.com')
+    if (-not $activeAccount.Ok) {
         Run 'gh' @('auth','login','--hostname','github.com','--git-protocol','https','--web','--scopes','repo,workflow')
+        $activeAccount = Probe 'gh' @('api','user','--hostname','github.com')
     }
-    $account = (Run 'gh' @('api','user')) | ConvertFrom-Json
+    if (-not $activeAccount.Ok) { throw 'Could not verify the active GitHub account.' }
+    $account = $activeAccount.Text | ConvertFrom-Json
     if ($account.login -ne 'kingjoyeuse') { throw "GitHub CLI is signed in as $($account.login), not kingjoyeuse. Use gh auth switch or gh auth login, then try again." }
     Run 'gh' @('auth','setup-git','--hostname','github.com')
     $existing = Probe 'gh' @('repo','view',$repository,'--json','nameWithOwner,isPrivate')
